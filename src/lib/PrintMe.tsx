@@ -17,8 +17,9 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
 
   function cleanAfterPrint() {
     document.body.classList.remove("print");
-    document.querySelector(".print-me")?.remove();
+    delete Components[id];
     afterPrint?.();
+    Popup.render(Math.random());
   }
   window.addEventListener("afterprint", cleanAfterPrint, { once: true });
   Popup.render(Math.random());
