@@ -3,6 +3,7 @@ import { Components, Popup } from "./ProviderController";
 import { PrintProps } from "./types";
 
 export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintProps) => {
+  if (document.querySelector(".print-me")) return;
   const id = "print-me";
   Component = typeof Component === "function" ? <Component {...componentProps} /> : Component;
   Components[id] = {
