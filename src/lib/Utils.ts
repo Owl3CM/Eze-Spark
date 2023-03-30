@@ -26,8 +26,7 @@ export const steup = ({ container, id, placement, target, offset }: SteupProps) 
   container.style.cssText = getStyle({ container, placement, target, offset });
   CurrentPopups[id].clear = () => {
     CurrentPopups[id] = null;
-    container.parentElement!.style.position = "";
-    container.parentElement!.classList.remove("has-popup");
+    container.parentElement?.classList.remove("has-popup");
     delete Components[container.id!];
     Popup.render(Math.random());
   };
@@ -35,7 +34,6 @@ export const steup = ({ container, id, placement, target, offset }: SteupProps) 
 
 export const removeMe = ({ currentTarget }: React.AnimationEvent<HTMLDivElement>) => {
   if (currentTarget.classList.contains("pop-out")) {
-    currentTarget.parentElement!.style.position = "";
     delete Components[currentTarget.id!];
     Popup.render(Math.random());
   }
