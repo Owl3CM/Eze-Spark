@@ -55,7 +55,7 @@ const getStyle = ({ container, placement, target, offset }: GetStyleProps) => {
   containerDim.offsetHeight = container.offsetHeight;
 
   const fixFucntion = fixPostion[placement];
-  if (fixFucntion) placement = fixFucntion(placement === "center" ? targetDim : target);
+  if (fixFucntion) placement = fixFucntion(targetDim);
 
   container.setAttribute("placement", placement);
 
@@ -71,10 +71,7 @@ const fixPostion: any = {
   left: (targetDim: any) => `${getYPOS(targetDim)}-left`,
   right: (targetDim: any) => `${getYPOS(targetDim)}-right`,
   auto: (targetDim: any) => `${getYPOS(targetDim)}-${getXPOS(targetDim)}`,
-  center: (target: any) => {
-    target && (target.style.position = "");
-    return "center";
-  }
+  center: () => "center"
 };
 
 const getPos: any = {
