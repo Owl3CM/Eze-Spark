@@ -1,5 +1,5 @@
 import React from "react";
-import { PopupContainer, PrintMe } from "../Lib";
+import { ProviderContainer, PrintMe } from "../Lib";
 import TestProvider from "./TestProvider";
 
 const ProviderExample = () => {
@@ -7,7 +7,7 @@ const ProviderExample = () => {
     <div>
       <h1>PopupExample</h1>
       <TestProvider />
-      <PopupContainer />
+      <ProviderContainer />
       <p
         className="button"
         onClick={() => {
