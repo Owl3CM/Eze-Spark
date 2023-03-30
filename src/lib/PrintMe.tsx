@@ -11,7 +11,7 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
     placement: "center",
     target: document.body,
     key: "print-key",
-    viewPort: window
+    viewPort: window,
   };
 
   function cleanAfterPrint() {
@@ -25,7 +25,7 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
 
 export function PrintPortal(popProps: any) {
   return createPortal(
-    <div ref={(container) => container && printme(container)} className='print-me'>
+    <div ref={(container) => container && printme(container)} className="print-me">
       {popProps.Component}
     </div>,
     document.body

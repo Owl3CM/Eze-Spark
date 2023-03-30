@@ -3,10 +3,10 @@ import { Popup, PopupMe } from "../Lib";
 
 const TestProvider = () => {
   return (
-    <div className='col-center bg-prim p-l rounded-l m-l gap-2x'>
+    <div className="col-center bg-prim p-l rounded-l m-l gap-2x">
       <h1>TestPopup</h1>
       <button
-        className='button bg-lord'
+        className="button bg-lord"
         onClick={({ currentTarget }) => {
           testPopup({ currentTarget, placement: "center" });
         }}
@@ -14,7 +14,7 @@ const TestProvider = () => {
         Center
       </button>
       <button
-        className='button bg-lord'
+        className="button bg-lord"
         onClick={({ currentTarget }) => {
           testPopup({ currentTarget, placement: "auto" });
         }}
@@ -29,10 +29,10 @@ export default TestProvider;
 
 const ComponentSample = ({ test }: any) => {
   return (
-    <div className='col px-3x gap-x py-l'>
+    <div className="col px-3x gap-x py-l">
       <p>{test}</p>
-      <input type='text' className='input' />
-      <p className='button' onClick={() => Popup.remove()}>
+      <input type="text" className="input" />
+      <p className="button" onClick={() => Popup.remove()}>
         Colse
       </p>
     </div>
@@ -45,6 +45,6 @@ const testPopup = ({ currentTarget, placement }: any) => {
     offset: 10,
     target: currentTarget,
     Component: ComponentSample,
-    componentProps: { test: "testing" }
+    componentProps: { test: "testing" },
   });
 };

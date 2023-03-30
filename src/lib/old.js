@@ -15,7 +15,7 @@ export const Popup = {
   },
   clear: () => {
     Object.keys(CurrentPopups).forEach((key) => CurrentPopups[key]?.clear());
-  }
+  },
 };
 
 export const PopupContainer = React.memo(({ containerClass = "" }) => {
@@ -27,7 +27,7 @@ export const PopupContainer = React.memo(({ containerClass = "" }) => {
 
     return (
       <div className={className} ref={(ref) => ref && handleShowPopup(ref)}>
-        <div className='popup-child'>{Popup.state.component}</div>
+        <div className="popup-child">{Popup.state.component}</div>
       </div>
     );
   }, [Popup.state]);

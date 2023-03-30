@@ -7,18 +7,19 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
   const overlay = args.overlay === true || placement === "center";
   const Component = convertToComponentIfNot(args);
   const offset = args.offset ?? Popup.offset;
+  const id = args.id ?? "global";
 
   if (target) target.classList.add("has-popup");
   return {
     Component,
-    id: args.id ?? "global",
+    id,
     placement,
     overlay,
     target,
-    key: getUniqueKey(target, Component),
+    key: getUniqueKey(target, Component) + id,
     viewPort: args.viewPort ?? window,
     removeOnOutClick: args.removeOnOutClick !== false,
-    offset
+    offset,
   };
 };
 
@@ -69,7 +70,7 @@ const fixPostion: any = {
   left: (targetDim: any) => `${getYPOS(targetDim)}-left`,
   right: (targetDim: any) => `${getYPOS(targetDim)}-right`,
   auto: (targetDim: any) => `${getYPOS(targetDim)}-${getXPOS(targetDim)}`,
-  center: () => "center"
+  center: () => "center",
 };
 
 const getPos: any = {
@@ -97,7 +98,7 @@ const getPos: any = {
     if (x > 0) emptySpace = x > emptySpace ? emptySpace : x;
     else emptySpace = 0;
     return `left:${-emptySpace}px;`;
-  }
+  },
 };
 
 const getXPOS = (targetDim: any) => (targetDim.x < window.innerWidth / 2 ? "right" : "left");

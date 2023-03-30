@@ -36,7 +36,7 @@ export const Popup: PopupController = {
   },
   r: 0,
   containerClass: "popup-container",
-  offset: 10
+  offset: 10,
 };
 
 export const PopupPortal = (popProps: PopupPortalProps) => CurrentPopups[popProps.id] || createPopupPortal(popProps);
@@ -61,7 +61,7 @@ const createPopupPortal = ({ Component, id, placement, overlay, target = documen
 
   return CurrentPopups[id];
 };
-const Overlay = (id: string, overlay?: boolean) => overlay && <span onClick={() => Popup.remove(id)} className='popup-overlay'></span>;
+const Overlay = (id: string, overlay?: boolean) => overlay && <span onClick={() => Popup.remove(id)} className="popup-overlay"></span>;
 
 function handleOutClick(props: PopupProps) {
   if (props.removeOnOutClick) {
