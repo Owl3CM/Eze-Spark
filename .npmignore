@@ -1,7 +1,6 @@
 src
+scripts
 .vercel
-.storybook
-storybook-static
 .editorconfig
 .prettierrc
 .eslintignore

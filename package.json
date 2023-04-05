@@ -1,6 +1,6 @@
 {
   "name": "morabaa-provider",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "",
   "main": "dist/index.js",
   "source": "src/index.tsx",
@@ -10,11 +10,10 @@
   "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006",
     "build": "rm -rf dist && rollup -c --exports auto",
-    "prod": "git add . && yarn build && yarn publish",
-    "start": "yarn build && start-storybook -p 6006"
+    "prod-old": "git add . && yarn build && yarn publish",
+    "start": "yarn build && start-storybook -p 6006",
+    "prod": "node ./scripts/publish.js"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

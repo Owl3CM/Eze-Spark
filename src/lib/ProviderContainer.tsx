@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Components, PopupPortal, Popup } from "./ProviderController";
 import { PrintPortal } from "./PrintMe";
 import { PopupContainerProps } from "./types";
@@ -6,7 +6,7 @@ import { PopupContainerProps } from "./types";
 export const ProviderContainer = ({ containerClass, overlayColor, primColor, childClass = "popup-child", offset }: PopupContainerProps) => {
   [Popup.r, Popup.render] = useState<number>(Popup.r);
   useMemo(() => setupOptions(overlayColor, primColor, containerClass, childClass, offset), []);
-  return useMemo(() => <>{Object.values(Components)?.map(portalBuilder)}</>, [Popup.r]);
+  return useMemo(() => Object.values(Components)?.map(portalBuilder), [Popup.r]);
 };
 
 const portalBuilder = (popProps: any) => (popProps.id === "print-me" ? PrintPortal(popProps) : PopupPortal(popProps));
