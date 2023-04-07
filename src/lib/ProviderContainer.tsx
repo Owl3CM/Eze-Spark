@@ -6,7 +6,7 @@ import { PopupContainerProps } from "./types";
 export const ProviderContainer = ({ containerClass, overlayColor, primColor, childClass = "popup-child", offset }: PopupContainerProps) => {
   [Popup.r, Popup.render] = useState<number>(Popup.r);
   useMemo(() => setupOptions(overlayColor, primColor, containerClass, childClass, offset), []);
-  return useMemo(() => <React.Fragment>{Object.values(Components)?.map(portalBuilder)}</React.Fragment>, [Popup.r]);
+  return useMemo(() => <>{Object.values(Components)?.map(portalBuilder) ?? null}</>, [Popup.r]);
 };
 
 const portalBuilder = (popProps: any) => (popProps.id === "print-me" ? PrintPortal(popProps) : PopupPortal(popProps));
