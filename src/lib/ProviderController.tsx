@@ -49,8 +49,7 @@ const createPopupPortal = ({ Component, id, placement, overlay, target = documen
         id={id}
         onAnimationEnd={removeMe}
         className={Popup.containerClass}
-        ref={(container) => container && steup({ container, id, placement, target, offset })}
-      >
+        ref={(container) => container && steup({ container, id, placement, target, offset })}>
         <div className={Popup.childClass}>{Component}</div>
       </div>
       {Overlay(id, overlay)}

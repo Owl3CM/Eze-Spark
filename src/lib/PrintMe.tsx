@@ -25,14 +25,14 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
   Popup.render(Math.random());
 };
 
-export function PrintPortal(popProps: any) {
+export const PrintPortal = (popProps: { Component: React.ReactNode }) => {
   return createPortal(
     <div ref={(container) => container && printme(container)} className="print-me">
       {popProps.Component}
     </div>,
     document.body
   );
-}
+};
 
 const printme = async (container: HTMLElement) => {
   const images = container.querySelectorAll("img");

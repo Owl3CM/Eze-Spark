@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Components, PopupPortal, Popup } from "./ProviderController";
+import { Components, Popup, PopupPortal } from "./ProviderController";
 import { PrintPortal } from "./PrintMe";
 import { PopupContainerProps } from "./types";
 
