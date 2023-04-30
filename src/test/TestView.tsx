@@ -1,7 +1,7 @@
 import React from "react";
 import { PopupMe } from "../lib";
 
-const TestPopup = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+const TestPopup = () => {
   PopupMe({
     Component: Example,
     componentProps: {
