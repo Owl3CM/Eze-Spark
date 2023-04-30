@@ -8,6 +8,7 @@ export const Components: { [id: string]: PopupProps } = {};
 const PopupExits = (id: string, key: string) => CurrentPopups[id]?.key === key;
 
 export const PopupMe = async (args: PopupComponent) => {
+  if (!(Popup as any).init) throw new Error("PopupMe must be used inside a ProviderContainer");
   const props = buildProps(args);
   if (PopupExits(props.id, props.key)) return;
 
@@ -36,7 +37,7 @@ export const Popup: PopupController = {
   },
   r: 0,
   containerClass: "popup-container",
-  offset: 10,
+  offset: { x: 0, y: 0 },
 };
 
 export const PopupPortal = (popProps: PopupPortalProps) => CurrentPopups[popProps.id] || createPopupPortal(popProps);
@@ -66,13 +67,19 @@ function handleOutClick(props: PopupProps) {
   if (props.removeOnOutClick) {
     setTimeout(() => {
       const popup = document.getElementById(props.id);
-
       if (popup) {
-        const remove = ({ target }: any) => {
-          if (popup.contains(target) || props.target?.contains(target)) return;
-          Popup.remove(props.id);
-          document.removeEventListener("pointerdown", remove);
-        };
+        const remove = props.target
+          ? ({ target }: any) => {
+              if (popup.contains(target) || props.target?.contains(target)) return;
+              Popup.remove(props.id);
+              document.removeEventListener("pointerdown", remove);
+            }
+          : ({ target }: any) => {
+              if (target !== popup) return;
+              Popup.remove(props.id);
+              document.removeEventListener("pointerdown", remove);
+            };
+
         document.addEventListener("pointerdown", remove);
       }
     }, 100);

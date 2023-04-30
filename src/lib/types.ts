@@ -9,7 +9,7 @@ export interface PopupController {
   render: (r: number) => void;
   containerClass?: string;
   childClass?: string;
-  offset: number;
+  offset: { x: number; y: number };
 }
 export type PopupPlacement =
   | "auto"
@@ -34,7 +34,7 @@ export interface PopupComponent {
   overlay?: boolean;
   componentProps?: any;
   removeOnOutClick?: boolean;
-  offset?: number;
+  offset?: { x: number; y: number };
   viewPort?: any;
 }
 export interface PopupProps {
@@ -54,7 +54,7 @@ export interface PopupContainerProps {
   overlayColor?: string;
   primColor?: string;
   childClass?: string;
-  offset?: number;
+  offset?: { x: number; y: number };
 }
 
 export interface SteupProps {
@@ -62,14 +62,14 @@ export interface SteupProps {
   id: string;
   placement: string;
   target: HTMLElement;
-  offset: number;
+  offset: { x: number; y: number };
 }
 
 export interface GetStyleProps {
   container: HTMLElement;
   placement: string;
   target: HTMLElement;
-  offset: number;
+  offset: { x: number; y: number };
 }
 
 export interface PopupPortalProps {
@@ -80,7 +80,7 @@ export interface PopupPortalProps {
   target: HTMLElement;
   key: string;
   viewPort: any;
-  offset: number;
+  offset: { x: number; y: number };
 }
 
 export interface PrintProps {

@@ -59,8 +59,9 @@ const getStyle = ({ container, placement, target, offset }: GetStyleProps) => {
   container.setAttribute("placement", placement);
 
   placement.split("-").forEach((pos) => {
-    sty += getPos[pos]?.({ targetDim, containerDim, offset });
+    sty += getPos[pos]?.({ targetDim, containerDim });
   });
+  sty += `transform:translate(${offset.x}px,${offset.y}px);`;
   return sty;
 };
 
@@ -75,16 +76,16 @@ const fixPostion: any = {
 
 const getPos: any = {
   center: () => `inset:0`,
-  top: ({ targetDim, containerDim, offset }: any) => {
+  top: ({ targetDim, containerDim }: any) => {
     let emptySpace = targetDim.y + targetDim.offsetHeight - containerDim.offsetHeight;
     if (emptySpace > 0) emptySpace = targetDim.offsetHeight;
-    return `bottom:${emptySpace + offset}px;`;
+    return `bottom:${emptySpace}px;`;
   },
-  bottom: ({ targetDim, containerDim, offset }: any) => {
+  bottom: ({ targetDim, containerDim }: any) => {
     let emptySpace = targetDim.y + targetDim.offsetHeight;
     const y = targetDim.y + containerDim.offsetHeight - window.innerHeight;
-    if (y > 0) emptySpace = (y > emptySpace ? emptySpace : y) + offset;
-    else emptySpace = -targetDim.offsetHeight - offset;
+    if (y > 0) emptySpace = y > emptySpace ? emptySpace : y;
+    else emptySpace = -targetDim.offsetHeight;
     return `top:${-emptySpace}px;`;
   },
   left: ({ targetDim, containerDim }: any) => {

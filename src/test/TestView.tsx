@@ -1,7 +1,58 @@
 import React from "react";
+import { PopupMe } from "../lib";
+
+const TestPopup = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  PopupMe({
+    Component: Example,
+    componentProps: {
+      text: "Hello",
+      tile: "World",
+    },
+    // placement: "top",
+  });
+};
+const TestPopupWithTarget = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  PopupMe({
+    id: "with-target",
+    Component: Example,
+    componentProps: {
+      text: "with target",
+      tile: "ok",
+    },
+    target: e.currentTarget,
+    offset: { x: 10, y: 10 },
+    // placement: "bottom",
+  });
+};
 
 const TestView = () => {
-  return <div>TestView</div>;
+  return (
+    <div>
+      <div className="row gap-x p-l">
+        <p onClick={TestPopup} className="button m-auto">
+          Test
+        </p>
+        <p onClick={TestPopupWithTarget} className="button m-auto">
+          Test with target
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default TestView;
+
+interface ExampleProps {
+  text: string;
+  tile: string;
+}
+
+const Example = ({ text, tile }: ExampleProps) => {
+  return (
+    <div className="p-l rounded-2x">
+      <h1>Example</h1>
+      <h2>{text}</h2>
+      <h2>{tile}</h2>
+    </div>
+  );
+};
