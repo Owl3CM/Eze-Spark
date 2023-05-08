@@ -25,7 +25,9 @@ export type PopupPlacement =
   | "top-center"
   | "bottom-center"
   | "left-center"
-  | "inside";
+  | "inside"
+  | "list";
+
 export interface PopupComponent {
   id?: string;
   Component: React.ReactNode | React.FC<any>;

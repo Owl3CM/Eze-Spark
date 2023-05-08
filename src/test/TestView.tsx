@@ -21,7 +21,7 @@ const TestPopupWithTarget = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
     },
     target: e.currentTarget,
     offset: { x: 10, y: 10 },
-    // placement: "bottom",
+    placement: "list",
   });
 };
 
