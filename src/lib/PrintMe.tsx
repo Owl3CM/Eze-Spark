@@ -13,6 +13,7 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
     target: document.body,
     key: "print-key",
     viewPort: window,
+    childClass: "",
   };
 
   function cleanAfterPrint() {

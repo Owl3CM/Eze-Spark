@@ -8,6 +8,7 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
   const Component = convertToComponentIfNot(args);
   const offset = args.offset ?? Popup.offset;
   const id = args.id ?? "global";
+  const childClass = (args.childClass ?? Popup.childClass) as string;
 
   if (target) target.classList.add("has-popup");
   return {
@@ -20,6 +21,7 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
     viewPort: args.viewPort ?? window,
     removeOnOutClick: args.removeOnOutClick !== false,
     offset,
+    childClass,
   };
 };
 

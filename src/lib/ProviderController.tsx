@@ -42,7 +42,7 @@ export const Popup: PopupController = {
 
 export const PopupPortal = (popProps: PopupPortalProps) => CurrentPopups[popProps.id] || createPopupPortal(popProps);
 
-const createPopupPortal = ({ Component, id, placement, overlay, target = document.body, key, offset }: PopupPortalProps) => {
+const createPopupPortal = ({ Component, id, placement, overlay, target = document.body, key, offset, childClass }: PopupPortalProps) => {
   CurrentPopups[id] = createPortal(
     <>
       <div
@@ -51,7 +51,7 @@ const createPopupPortal = ({ Component, id, placement, overlay, target = documen
         onAnimationEnd={removeMe}
         className={Popup.containerClass}
         ref={(container) => container && steup({ container, id, placement, target, offset })}>
-        <div className={Popup.childClass}>{Component}</div>
+        <div className={childClass}>{Component}</div>
       </div>
       {Overlay(id, overlay)}
     </>,

@@ -38,6 +38,7 @@ export interface PopupComponent {
   removeOnOutClick?: boolean;
   offset?: { x: number; y: number };
   viewPort?: any;
+  childClass?: string;
 }
 export interface PopupProps {
   id: string;
@@ -48,9 +49,10 @@ export interface PopupProps {
   removeOnOutClick?: boolean;
   viewPort: any;
   key: string;
+  childClass: string;
 }
-
 export type BuildProps = (props: PopupComponent) => PopupProps;
+
 export interface PopupContainerProps {
   containerClass?: string;
   overlayColor?: string;
@@ -83,6 +85,7 @@ export interface PopupPortalProps {
   key: string;
   viewPort: any;
   offset: { x: number; y: number };
+  childClass?: string;
 }
 
 export interface PrintProps {
