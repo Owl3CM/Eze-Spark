@@ -4,7 +4,7 @@ import { PrintProps } from "./types";
 import { isMobile } from "./Utils";
 
 export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintProps) => {
-  if (document.querySelector(".print-me")) return;
+  // const old = document.querySelector(".print-me");
   const id = "print-me";
   Component = typeof Component === "function" ? <Component {...componentProps} /> : Component;
   Components[id] = {
@@ -18,17 +18,12 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
   };
 
   function cleanAfterPrint() {
-    setTimeout(
-      () => {
-        document.body.classList.remove("print");
-        delete Components[id];
-        afterPrint?.();
-        Popup.render(Math.random());
-      },
-      isMobile ? 2000 : 100
-    );
+    delete Components[id];
+    afterPrint?.();
+    Popup.render(Math.random());
   }
-  window.addEventListener("afterprint", cleanAfterPrint, { once: true });
+  if (typeof window !== undefined)
+    isMobile ? window.addEventListener("pointerdown", cleanAfterPrint, { once: true }) : window.addEventListener("afterprint", cleanAfterPrint, { once: true });
   Popup.render(Math.random());
 };
 
@@ -55,8 +50,5 @@ const printme = async (container: HTMLElement) => {
       })
     );
   }
-  document.body.classList.add("print");
-  setTimeout(() => {
-    window.print();
-  }, 10);
+  window.print();
 };

@@ -1,8 +1,18 @@
 import React from "react";
-import { PopupMe } from "../lib";
+import { PopupMe, PrintMe } from "../lib";
 
 const TestPopup = () => {
   PopupMe({
+    Component: Example,
+    componentProps: {
+      text: "Hello",
+      tile: "World",
+    },
+    // placement: "top",
+  });
+};
+const TestPrint = () => {
+  PrintMe({
     Component: Example,
     componentProps: {
       text: "Hello",
@@ -31,6 +41,9 @@ const TestView = () => {
       <div className="row gap-x p-l">
         <p onClick={TestPopup} className="button m-auto">
           Test
+        </p>
+        <p onClick={TestPrint} className="button m-auto">
+          TestPrint
         </p>
         <p onClick={TestPopupWithTarget} className="button m-auto">
           Test with target
