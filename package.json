@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && rollup -c --exports auto",
     "prod-old": "git add . && yarn build && yarn publish",
-    "start": "vite",
+    "start": "vite --host",
     "prod": "node ./scripts/publish.js"
   },
   "peerDependencies": {

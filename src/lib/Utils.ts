@@ -42,6 +42,8 @@ export const removeMe = ({ currentTarget }: React.AnimationEvent<HTMLDivElement>
   }
 };
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export const isMobile = navigator.userAgent.toLowerCase().match(/mobile/i) != null;
+
 const getUniqueKey = (target: any, Component: React.ReactNode) => JSON.stringify(target?.getBoundingClientRect() || Component);
 
 const getStyle = ({ container, placement, target, offset }: GetStyleProps) => {

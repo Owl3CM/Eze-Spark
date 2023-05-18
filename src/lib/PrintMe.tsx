@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import { Components, Popup } from "./ProviderController";
 import { PrintProps } from "./types";
+import { isMobile } from "./Utils";
 
 export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintProps) => {
   if (document.querySelector(".print-me")) return;
@@ -17,12 +18,15 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
   };
 
   function cleanAfterPrint() {
-    setTimeout(() => {
-      document.body.classList.remove("print");
-      delete Components[id];
-      afterPrint?.();
-      Popup.render(Math.random());
-    }, 10);
+    setTimeout(
+      () => {
+        document.body.classList.remove("print");
+        delete Components[id];
+        afterPrint?.();
+        Popup.render(Math.random());
+      },
+      isMobile ? 2000 : 100
+    );
   }
   window.addEventListener("afterprint", cleanAfterPrint, { once: true });
   Popup.render(Math.random());
