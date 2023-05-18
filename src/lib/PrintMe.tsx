@@ -17,10 +17,12 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
   };
 
   function cleanAfterPrint() {
-    document.body.classList.remove("print");
-    delete Components[id];
-    afterPrint?.();
-    Popup.render(Math.random());
+    setTimeout(() => {
+      document.body.classList.remove("print");
+      delete Components[id];
+      afterPrint?.();
+      Popup.render(Math.random());
+    }, 10);
   }
   window.addEventListener("afterprint", cleanAfterPrint, { once: true });
   Popup.render(Math.random());
@@ -50,5 +52,7 @@ const printme = async (container: HTMLElement) => {
     );
   }
   document.body.classList.add("print");
-  window.print();
+  setTimeout(() => {
+    window.print();
+  }, 10);
 };
