@@ -160,7 +160,7 @@
 }
     
 @media print {
-    body {
+    body:has(.print-me) {
         padding: 0 !important;
         margin: 0 !important;
         border: 0 !important;
@@ -176,7 +176,7 @@
         background-color: #fff !important;
         color: #000 !important; 
     }
-    #root {
+    #root:has(.print-me) {
         display: none !important;
     }
  }
