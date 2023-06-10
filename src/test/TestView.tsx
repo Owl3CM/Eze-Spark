@@ -8,6 +8,8 @@ const TestPopup = () => {
       text: "Hello",
       tile: "World",
     },
+    removeOnOutClick: true,
+    overlay: true,
     // placement: "top",
   });
 };

@@ -75,11 +75,10 @@ function handleOutClick(props: PopupProps) {
               document.removeEventListener("pointerdown", remove);
             }
           : ({ target }: any) => {
-              if (target !== popup) return;
+              if (popup.firstChild?.contains(target)) return;
               Popup.remove(props.id);
               document.removeEventListener("pointerdown", remove);
             };
-
         document.addEventListener("pointerdown", remove);
       }
     }, 100);
