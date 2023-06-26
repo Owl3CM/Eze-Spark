@@ -23,7 +23,7 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
     Popup.render(Math.random());
   }
   if (typeof window !== undefined)
-    isMobile ? window.addEventListener("pointerdown", cleanAfterPrint, { once: true }) : window.addEventListener("afterprint", cleanAfterPrint, { once: true });
+    isMobile() ? window.addEventListener("pointerdown", cleanAfterPrint, { once: true }) : window.addEventListener("afterprint", cleanAfterPrint, { once: true });
   Popup.render(Math.random());
 };
 
