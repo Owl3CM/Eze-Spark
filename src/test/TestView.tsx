@@ -34,6 +34,7 @@ const TestPopupWithTarget = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
     target: e.currentTarget,
     offset: { x: 10, y: 10 },
     placement: "list",
+    // onRemoved: () => console.log("removed"),
   });
 };
 
@@ -41,15 +42,15 @@ const TestView = () => {
   return (
     <div>
       <div className="row gap-x p-l">
-        <p onClick={TestPopup} className="button m-auto">
+        <div onClick={TestPopup} className="button m-auto">
           Test
-        </p>
-        <p onClick={TestPrint} className="button m-auto">
+        </div>
+        <div onClick={TestPrint} className="button m-auto">
           TestPrint
-        </p>
-        <p onClick={TestPopupWithTarget} className="button m-auto">
+        </div>
+        <div onClick={TestPopupWithTarget} className="button m-auto">
           Test with target
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
   const offset = args.offset ?? Popup.offset;
   const id = args.id ?? "global";
   const childClass = (args.childClass ?? Popup.childClass) as string;
+  const onRemoved = args.onRemoved;
 
   if (target) target.classList.add("has-popup");
   return {
@@ -22,15 +23,17 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
     removeOnOutClick: args.removeOnOutClick !== false,
     offset,
     childClass,
+    onRemoved,
   };
 };
 
-export const steup = ({ container, id, placement, target, offset }: SteupProps) => {
+export const steup = ({ container, id, placement, target, offset, onRemoved }: SteupProps) => {
   container.style.cssText = getStyle({ container, placement, target, offset });
   CurrentPopups[id].clear = () => {
     CurrentPopups[id] = null;
     container.parentElement?.classList.remove("has-popup");
     delete Components[container.id!];
+    onRemoved?.();
     Popup.render(Math.random());
   };
 };

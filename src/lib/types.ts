@@ -39,6 +39,7 @@ export interface PopupComponent {
   offset?: { x: number; y: number };
   viewPort?: any;
   childClass?: string;
+  onRemoved?: () => void;
 }
 export interface PopupProps {
   id: string;
@@ -67,6 +68,7 @@ export interface SteupProps {
   placement: string;
   target: HTMLElement;
   offset: { x: number; y: number };
+  onRemoved?: () => void;
 }
 
 export interface GetStyleProps {
@@ -86,6 +88,7 @@ export interface PopupPortalProps {
   viewPort: any;
   offset: { x: number; y: number };
   childClass?: string;
+  onRemoved?: () => void;
 }
 
 export interface PrintProps {
