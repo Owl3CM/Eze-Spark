@@ -8,12 +8,13 @@ export const Components: { [id: string]: PopupProps } = {};
 const PopupExits = (id: string, key: string) => CurrentPopups[id]?.key === key;
 
 export const PopupMe = async (args: PopupComponent) => {
+  if (args.target && args.target.classList.contains("has-popup")) return Popup.remove(args.id);
   if (!(Popup as any).init) throw new Error("PopupMe must be used inside a ProviderContainer");
   const props = buildProps(args);
   if (PopupExits(props.id, props.key)) return;
 
   Popup.remove(props.id);
-  await sleep(10);
+  await sleep(1);
   Components[props.id] = props;
 
   handleOutClick(props);
@@ -70,11 +71,9 @@ function handleOutClick(props: PopupProps) {
       if (popup) {
         const remove = props.target
           ? async ({ target }: any) => {
-              // if (popup.contains(target) || props.target?.contains(target)) return;
-              if (popup.contains(target)) return;
-              await sleep(101);
-              Popup.remove(props.id);
+              if (popup.contains(target) || props.target?.contains(target)) return;
               document.removeEventListener("pointerdown", remove);
+              Popup.remove(props.id);
             }
           : ({ target }: any) => {
               if (popup.firstChild?.contains(target)) return;
@@ -83,7 +82,7 @@ function handleOutClick(props: PopupProps) {
             };
         document.addEventListener("pointerdown", remove);
       }
-    }, 100);
+    }, 5);
   }
 }
 

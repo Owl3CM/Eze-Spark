@@ -25,13 +25,6 @@ const TestPrint = () => {
 };
 const TestPopupWithTarget = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   const id = "with-target";
-  const popup = Popup.getPopup(id);
-  console.log({ popup });
-  if (popup) {
-    return;
-  } else {
-    console.log("create", popup);
-  }
   PopupMe({
     id,
     Component: Example,
