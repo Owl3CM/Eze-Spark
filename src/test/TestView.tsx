@@ -1,5 +1,5 @@
 import React from "react";
-import { PopupMe, PrintMe } from "../lib";
+import { Popup, PopupMe, PrintMe } from "../lib";
 
 const TestPopup = () => {
   PopupMe({
@@ -24,8 +24,16 @@ const TestPrint = () => {
   });
 };
 const TestPopupWithTarget = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const id = "with-target";
+  const popup = Popup.getPopup(id);
+  console.log({ popup });
+  if (popup) {
+    return;
+  } else {
+    console.log("create", popup);
+  }
   PopupMe({
-    id: "with-target",
+    id,
     Component: Example,
     componentProps: {
       text: "with target",

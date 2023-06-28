@@ -72,7 +72,7 @@ function handleOutClick(props: PopupProps) {
           ? async ({ target }: any) => {
               // if (popup.contains(target) || props.target?.contains(target)) return;
               if (popup.contains(target)) return;
-              if (props.target?.contains(target)) await sleep(100);
+              await sleep(101);
               Popup.remove(props.id);
               document.removeEventListener("pointerdown", remove);
             }
