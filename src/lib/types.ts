@@ -26,7 +26,8 @@ export type PopupPlacement =
   | "bottom-center"
   | "left-center"
   | "inside"
-  | "list";
+  | "list"
+  | "none";
 
 export interface PopupComponent {
   id?: string;
@@ -40,6 +41,7 @@ export interface PopupComponent {
   viewPort?: any;
   childClass?: string;
   onRemoved?: () => void;
+  containerClass?: string;
 }
 export interface PopupProps {
   id: string;
@@ -51,6 +53,7 @@ export interface PopupProps {
   viewPort: any;
   key: string;
   childClass: string;
+  containerClass: string;
 }
 export type BuildProps = (props: PopupComponent) => PopupProps;
 
@@ -89,6 +92,7 @@ export interface PopupPortalProps {
   offset: { x: number; y: number };
   childClass?: string;
   onRemoved?: () => void;
+  containerClass: string;
 }
 
 export interface PrintProps {

@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { PopupComponent, PopupPortalProps, PopupController, PopupProps, PrintProps } from "./types";
+import { PopupComponent, PopupPortalProps, PopupController, PopupProps } from "./types";
 import { buildProps, removeMe, sleep, steup } from "./Utils";
 
 export const CurrentPopups: { [id: string]: any } = {};
@@ -18,7 +18,7 @@ export const PopupMe = async (args: PopupComponent) => {
   Components[props.id] = props;
 
   handleOutClick(props);
-  Popup.render(Math.random());
+  Popup.render((Popup.r += 1));
   return () => Popup.remove(props.id);
 };
 
@@ -37,20 +37,31 @@ export const Popup: PopupController = {
     Object.keys(CurrentPopups).forEach((key) => CurrentPopups[key]?.clear());
   },
   r: 0,
-  containerClass: "popup-container",
+  containerClass: "provider-popup-container",
   offset: { x: 0, y: 0 },
 };
 
 export const PopupPortal = (popProps: PopupPortalProps) => CurrentPopups[popProps.id] || createPopupPortal(popProps);
 
-const createPopupPortal = ({ Component, id, placement, overlay, target = document.body, key, offset, childClass, onRemoved }: PopupPortalProps) => {
+const createPopupPortal = ({
+  Component,
+  id,
+  placement,
+  overlay,
+  target = document.body,
+  key,
+  offset,
+  childClass,
+  onRemoved,
+  containerClass,
+}: PopupPortalProps) => {
   CurrentPopups[id] = createPortal(
     <>
       <div
         key={key}
         id={id}
         onAnimationEnd={removeMe}
-        className={Popup.containerClass}
+        className={containerClass}
         ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved: onRemoved })}>
         <div className={childClass}>{Component}</div>
       </div>
@@ -62,7 +73,7 @@ const createPopupPortal = ({ Component, id, placement, overlay, target = documen
 
   return CurrentPopups[id];
 };
-const Overlay = (id: string, overlay?: boolean) => overlay && <span onClick={() => Popup.remove(id)} className="popup-overlay"></span>;
+const Overlay = (id: string, overlay?: boolean) => overlay && <span onClick={() => Popup.remove(id)} className="provider-popup-overlay"></span>;
 
 function handleOutClick(props: PopupProps) {
   if (props.removeOnOutClick) {

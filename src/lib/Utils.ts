@@ -4,12 +4,14 @@ import { BuildProps, GetStyleProps, PopupComponent, SteupProps } from "./types";
 export const buildProps: BuildProps = (args: PopupComponent) => {
   const target = args.target;
   const placement = args.placement ?? (target ? "auto" : "center");
-  const overlay = args.overlay === true || placement === "center";
+  const overlay = args.overlay ?? placement === "center";
+
   const Component = convertToComponentIfNot(args);
   const offset = args.offset ?? Popup.offset;
   const id = args.id ?? "global";
   const childClass = (args.childClass ?? Popup.childClass) as string;
   const onRemoved = args.onRemoved;
+  const containerClass = args.containerClass ?? Popup.containerClass ?? "provider-popup-container";
 
   if (target) target.classList.add("has-popup");
   return {
@@ -24,6 +26,7 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
     offset,
     childClass,
     onRemoved,
+    containerClass,
   };
 };
 
