@@ -31,7 +31,7 @@
      position: fixed;
      background-color: var(--overlay);
      animation:  opacity-in 0.2s ease-in;
-     z-index:10000000000000000;
+     z-index:1000;
  }
  /* before */
  [placement]::before{
