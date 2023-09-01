@@ -17,7 +17,6 @@ export const PopupMe = async (args: PopupComponent) => {
   await sleep(1);
   Components[props.id] = props;
 
-  // handleOutClick(props);
   Popup.render((Popup.r += 1));
   return () => Popup.remove(props.id);
 };

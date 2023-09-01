@@ -21,10 +21,9 @@ const TestPopupOverlay = () => {
       text: "Hello",
       tile: "World",
     },
+    // placement: "center",
     // removeOnOutClick: false,
-    placement: "center",
-    // removeOnOutClick: false,
-    overlay: true,
+    // overlay: true,
     // containerClass: "bg-red fixed left-0 top-0",
   });
 };
