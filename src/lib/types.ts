@@ -93,6 +93,7 @@ export interface PopupPortalProps {
   childClass?: string;
   onRemoved?: () => void;
   containerClass: string;
+  removeOnOutClick?: boolean;
 }
 
 export interface PrintProps {

@@ -8,10 +8,24 @@ const TestPopup = () => {
       text: "Hello",
       tile: "World",
     },
-    removeOnOutClick: false,
+    // removeOnOutClick: false,
     placement: "center",
     // containerClass: "bg-red fixed left-0 top-0",
-    // overlay: false,
+    overlay: false,
+  });
+};
+const TestPopupOverlay = () => {
+  PopupMe({
+    Component: Example,
+    componentProps: {
+      text: "Hello",
+      tile: "World",
+    },
+    // removeOnOutClick: false,
+    placement: "center",
+    // removeOnOutClick: false,
+    overlay: true,
+    // containerClass: "bg-red fixed left-0 top-0",
   });
 };
 
@@ -48,6 +62,9 @@ const TestView = () => {
       <div className="row gap-x p-l">
         <div onClick={TestPopup} className="button m-auto">
           Test
+        </div>
+        <div onClick={TestPopupOverlay} className="button m-auto">
+          TestPopupOverlay
         </div>
         <div onClick={TestPopupWithTarget} className="button m-auto">
           Test with target

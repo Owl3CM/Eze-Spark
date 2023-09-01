@@ -16,8 +16,8 @@
      background-color:transparent ;
      filter: drop-shadow(0 0 6px var(--shadow-m));
      animation: fade-in-size  var(--animation-delay) ease-in;
-}
- .provider-popup-child-conatine{
+    }
+    .provider-popup-child-conatine{
      margin: auto ;
      width: 100%;
      max-width: fit-content;
@@ -25,14 +25,19 @@
      padding: var(--l);
      border-radius: var(--l);
      box-shadow: var(--shadow-l);
+    }
+ #provider-popup-child{
+     z-index: 1001;
  }
  .provider-popup-overlay{
      inset: 0;
      position: fixed;
-     background-color: var(--overlay);
      animation:  opacity-in 0.2s ease-in;
      z-index:1000;
- }
+}
+[provider-overlay="true"] {
+    background-color: var(--overlay);
+}
  /* before */
  [placement]::before{
      content: "";
