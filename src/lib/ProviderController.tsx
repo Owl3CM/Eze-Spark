@@ -81,17 +81,17 @@ function handleOutClick(props: PopupProps) {
       const popup = document.getElementById(props.id);
       if (popup) {
         const remove = props.target
-          ? async ({ target }: any) => {
+          ? ({ target }: any) => {
               if (popup.contains(target) || props.target?.contains(target)) return;
-              document.removeEventListener("pointerdown", remove);
+              document.removeEventListener("pointerup", remove);
               Popup.remove(props.id);
             }
           : ({ target }: any) => {
               if (popup.firstChild?.contains(target)) return;
+              document.removeEventListener("pointerup", remove);
               Popup.remove(props.id);
-              document.removeEventListener("pointerdown", remove);
             };
-        document.addEventListener("pointerdown", remove);
+        document.addEventListener("pointerup", remove);
       }
     }, 5);
   }

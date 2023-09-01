@@ -31,7 +31,7 @@
      position: fixed;
      background-color: var(--overlay);
      animation:  opacity-in 0.2s ease-in;
-     z-index:1000;
+     z-index:10000000000000000;
  }
  /* before */
  [placement]::before{
@@ -48,7 +48,7 @@
  [placement="bottom-left"]::before{ top: -5px;  right:  10px; content: ""; }
  [placement="top-left"]::before{ right: 10px;  bottom:  -5px; content: ""; }
  [placement="top-right"]::before{ left: 10px;  bottom:  -5px; content: ""; }
- [placement="list"]::before,[placement="center"]::before,[placement="inside"]::before{all : unset !important; }
+ [placement="list"]::before,[placement="center"]::before,[placement="inside"]::before,[placement="none"]{all : unset !important; }
  
 
  [placement="center"]{

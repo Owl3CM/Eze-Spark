@@ -8,10 +8,10 @@ const TestPopup = () => {
       text: "Hello",
       tile: "World",
     },
-    removeOnOutClick: true,
+    removeOnOutClick: false,
     placement: "center",
     // containerClass: "bg-red fixed left-0 top-0",
-    overlay: false,
+    // overlay: false,
   });
 };
 
