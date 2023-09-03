@@ -16,9 +16,7 @@
   [popup-has-target="false"] {
     /* background-color: #0f01 !important; */
     position: fixed;
-    padding: 100px 10px;
     overflow: auto;
-    inset: 0;
     display: flex;
     flex-direction: column;
   }

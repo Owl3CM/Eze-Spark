@@ -9,11 +9,8 @@ export const PopupMe = async (args: PopupComponent) => {
   if (!(Popup as any).init) throw new Error("PopupMe must be used inside a ProviderContainer");
   const alreadyHasPopup = args.target && args.target.classList.contains("has-popup");
   const props = buildProps(args);
-  if (PopupExits(props.id, props.key)) {
-    if (alreadyHasPopup) {
-      Popup.remove(props.id);
-      return;
-    }
+  if (PopupExits(props.id, props.key) && alreadyHasPopup) {
+    return Popup.remove(props.id);
   }
   await Popup.remove(props.id);
   Components[props.id] = props;
@@ -39,7 +36,7 @@ export const Popup: PopupController = {
   r: 0,
   containerClass: "",
   offset: { x: 0, y: 0 },
-  fadeAnimation: "height",
+  fadeAnimation: "auto",
   overlayClass: "",
 };
 
@@ -59,20 +56,17 @@ const createPopupPortal = ({
   containerClass,
   fadeAnimation,
   overlayClass,
+  hasTarget,
 }: PopupPortalProps) => {
-  let hasTarget = "true";
-  if (!target) {
-    target = document.body;
-    hasTarget = "false";
-  }
+  if (!hasTarget) target = document.body;
   CurrentPopups[id] = createPortal(
     <>
       <div
         key={key}
         id={id}
         className={containerClass}
-        popup-has-target={hasTarget}
-        ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved, fadeAnimation })}>
+        popup-has-target={`${hasTarget}`}
+        ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved, fadeAnimation, hasTarget })}>
         <div
           style={{ pointerEvents: "all", position: hasTarget ? "static" : "absolute" }}
           ref={setpChild(fadeAnimation)}

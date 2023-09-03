@@ -12,6 +12,7 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
   const childClass = (args.childClass ?? Popup.childClass) as string;
   const onRemoved = args.onRemoved;
   const containerClass = args.containerClass ?? Popup.containerClass;
+  const fadeAnimation = args.fadeAnimation ?? Popup.fadeAnimation;
 
   if (target) target.classList.add("has-popup");
   return {
@@ -27,13 +28,14 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
     childClass,
     onRemoved,
     containerClass,
-    fadeAnimation: args.fadeAnimation ?? Popup.fadeAnimation,
+    fadeAnimation,
     overlayClass: args.overlayClass ?? Popup.overlayClass,
+    hasTarget: !!target,
   };
 };
 
-export const steup = ({ container, id, placement, target, offset, onRemoved, fadeAnimation }: SteupProps) => {
-  container.style.cssText = getStyle({ container, placement, target, offset });
+export const steup = ({ container, id, placement, target, offset, onRemoved, fadeAnimation, hasTarget }: SteupProps) => {
+  container.style.cssText = getStyle({ container, placement, target, offset, hasTarget });
 
   CurrentPopups[id].clear = async () => {
     const parent = container.parentElement;
@@ -61,8 +63,11 @@ export const isMobile = () => {
 
 const getUniqueKey = (target: any, Component: React.ReactNode) => JSON.stringify(target?.getBoundingClientRect() || Component);
 
-const getStyle = ({ container, placement, target, offset }: GetStyleProps) => {
+const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleProps) => {
   let sty = "pointer-events:none;z-index:1001;" + (container.style.cssText || "");
+  if (!hasTarget) {
+    return getStyleWithoutTarget({ sty, container, placement, offset });
+  }
 
   let targetDim: any = target.getBoundingClientRect();
   targetDim.offsetWidth = target.offsetWidth;
@@ -78,10 +83,37 @@ const getStyle = ({ container, placement, target, offset }: GetStyleProps) => {
   container.setAttribute("placement", placement);
 
   placement.split("-").forEach((pos) => {
-    sty += getPos[pos]?.({ targetDim, containerDim });
+    sty += getPosForTarget[pos]?.({ targetDim, containerDim });
   });
   sty += `transform:translate(${offset.x}px,${offset.y}px);`;
   return sty;
+};
+
+const getStyleWithoutTarget = ({ sty, container, placement, offset }: any) => {
+  container.setAttribute("placement", placement);
+
+  placement.split("-").forEach((pos: string) => {
+    sty += getPos[pos]?.();
+  });
+
+  sty += `transform:translate(${offset.x}px,${offset.y}px);`;
+  return sty;
+};
+
+const getPos: any = {
+  center: () => `inset:0;padding:100px 10px;`,
+  top: () => {
+    return `top:${0}px;`;
+  },
+  bottom: () => {
+    return `bottom:${0}px;`;
+  },
+  left: () => {
+    return `left:${0}px;`;
+  },
+  right: () => {
+    return `right:${0}px;`;
+  },
 };
 
 const fixPostion: any = {
@@ -93,7 +125,7 @@ const fixPostion: any = {
   center: () => "center",
 };
 
-const getPos: any = {
+const getPosForTarget: any = {
   center: () => `inset:0`,
   top: ({ targetDim, containerDim }: any) => {
     let emptySpace = targetDim.y + targetDim.offsetHeight - containerDim.offsetHeight;

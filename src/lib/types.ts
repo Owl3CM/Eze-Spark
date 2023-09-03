@@ -58,6 +58,7 @@ export interface PopupProps {
   childClass: string;
   containerClass?: string;
   fadeAnimation?: FadeAnimation;
+  hasTarget: boolean;
 }
 export type BuildProps = (props: PopupComponent) => PopupProps;
 
@@ -78,6 +79,7 @@ export interface SteupProps {
   offset: { x: number; y: number };
   onRemoved?: () => void;
   fadeAnimation?: FadeAnimation;
+  hasTarget: boolean;
 }
 
 export interface GetStyleProps {
@@ -85,6 +87,7 @@ export interface GetStyleProps {
   placement: string;
   target: HTMLElement;
   offset: { x: number; y: number };
+  hasTarget?: boolean;
 }
 
 export interface PopupPortalProps {
@@ -101,6 +104,7 @@ export interface PopupPortalProps {
   containerClass: string;
   fadeAnimation: FadeAnimation;
   overlayClass?: string;
+  hasTarget: boolean;
 }
 
 export interface PrintProps {

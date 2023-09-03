@@ -8,7 +8,7 @@ import ToggleTheme from "./ToggleTheme";
 createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <App />
-    <ProviderContainer primColor="var(--prim)" animationTime={500} />
+    <ProviderContainer primColor="var(--prim)" animationTime={300} />
     <ToggleTheme />
   </BrowserRouter>
 );
