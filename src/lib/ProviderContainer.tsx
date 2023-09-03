@@ -4,23 +4,31 @@ import { PrintPortal } from "./PrintMe";
 import { PopupContainerProps } from "./types";
 
 export const ProviderContainer = ({
-  overlayColor,
   primColor,
   offset = { x: 0, y: 0 },
-  containerClass = "provider-popup-container",
-  childClass = "provider-popup-child-conatine",
+  containerClass = "",
+  childClass = "",
+  overlayClass = "",
+  animationTime = 300,
 }: PopupContainerProps) => {
   [Popup.r, Popup.render] = useState<number>(Popup.r);
-  useMemo(() => setupOptions(overlayColor, primColor, containerClass, childClass, offset), []);
+  useMemo(() => setupOptions(primColor, containerClass, childClass, offset, overlayClass, animationTime), []);
   return useMemo(() => <>{Object.values(Components)?.map(portalBuilder) ?? null}</>, [Popup.r]);
 };
 
 const portalBuilder = (popProps: any) => (popProps.id === "print-me" ? PrintPortal(popProps) : PopupPortal(popProps));
 
-const setupOptions = (overlayColor?: string, primColor?: string, containerClass?: string, childClass?: string, offset?: { x: number; y: number }) => {
+const setupOptions = (
+  primColor?: string,
+  containerClass?: string,
+  childClass?: string,
+  offset?: { x: number; y: number },
+  overlayClass?: string,
+  animationTime?: number
+) => {
   const htmlEl = document.documentElement;
-  overlayColor && htmlEl.style.setProperty("--overlay-color", overlayColor);
   primColor && htmlEl.style.setProperty("--popup-prim", primColor);
+  animationTime && htmlEl.style.setProperty("--popup-animation-time", `${animationTime}ms`);
 
-  Object.assign(Popup, { containerClass, childClass, offset, init: true });
+  Object.assign(Popup, { containerClass, childClass, offset, overlayClass, init: true });
 };

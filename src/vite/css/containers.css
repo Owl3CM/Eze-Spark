@@ -13,7 +13,9 @@ table {border-collapse: collapse;border-spacing: 0;}
 
 /* Containers */
 *{-webkit-tap-highlight-color:var(--highlight)}
-p,span,div,option,link,a { user-select: none;}
+p,span,div,option,link,a { user-select: none;
+    color:var(--owl)
+}
 
 body{
     font-weight: bold;

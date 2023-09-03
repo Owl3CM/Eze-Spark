@@ -1,22 +1,23 @@
 import { createPortal } from "react-dom";
 import { PopupComponent, PopupPortalProps, PopupController, PopupProps } from "./types";
-import { buildProps, removeMe, sleep, steup } from "./Utils";
+import { buildProps, handleOutClick, sleep, steup } from "./Utils";
 
 export const CurrentPopups: { [id: string]: any } = {};
 export const Components: { [id: string]: PopupProps } = {};
 
-const PopupExits = (id: string, key: string) => CurrentPopups[id]?.key === key;
-
 export const PopupMe = async (args: PopupComponent) => {
-  if (args.target && args.target.classList.contains("has-popup")) return Popup.remove(args.id);
   if (!(Popup as any).init) throw new Error("PopupMe must be used inside a ProviderContainer");
+  const alreadyHasPopup = args.target && args.target.classList.contains("has-popup");
   const props = buildProps(args);
-  if (PopupExits(props.id, props.key)) return;
-
-  Popup.remove(props.id);
-  await sleep(1);
+  if (PopupExits(props.id, props.key)) {
+    if (alreadyHasPopup) {
+      Popup.remove(props.id);
+      return;
+    }
+  }
+  await Popup.remove(props.id);
   Components[props.id] = props;
-
+  handleOutClick(props);
   Popup.render((Popup.r += 1));
   return () => Popup.remove(props.id);
 };
@@ -29,45 +30,58 @@ export const Popup: PopupController = {
   render: (r: number) => {
     Popup.r = r;
   },
-  remove: (id: string = "global") => {
-    CurrentPopups[id]?.clear();
+  remove: async (id: string = "global") => {
+    await CurrentPopups[id]?.clear();
   },
   removeAll: () => {
     Object.keys(CurrentPopups).forEach((key) => CurrentPopups[key]?.clear());
   },
   r: 0,
-  containerClass: "provider-popup-container",
+  containerClass: "",
   offset: { x: 0, y: 0 },
+  fadeAnimation: "height",
+  overlayClass: "",
 };
 
 export const PopupPortal = (popProps: PopupPortalProps) => CurrentPopups[popProps.id] || createPopupPortal(popProps);
+const PopupExits = (id: string, key: string) => CurrentPopups[id]?.key === key;
 
 const createPopupPortal = ({
   Component,
   id,
   placement,
   overlay,
-  target = document.body,
+  target,
   key,
   offset,
   childClass,
   onRemoved,
   containerClass,
-  removeOnOutClick,
+  fadeAnimation,
+  overlayClass,
 }: PopupPortalProps) => {
+  let hasTarget = "true";
+  if (!target) {
+    target = document.body;
+    hasTarget = "false";
+  }
   CurrentPopups[id] = createPortal(
     <>
       <div
         key={key}
         id={id}
-        onAnimationEnd={removeMe}
         className={containerClass}
-        ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved: onRemoved })}>
-        <div id="provider-popup-child" className={childClass}>
+        popup-has-target={hasTarget}
+        ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved, fadeAnimation })}>
+        <div
+          style={{ pointerEvents: "all", position: hasTarget ? "static" : "absolute" }}
+          ref={setpChild(fadeAnimation)}
+          id="provider-popup-child"
+          className={childClass}>
           {Component}
         </div>
-        {Overlay(id, overlay, removeOnOutClick)}
       </div>
+      {overlay && <div className={overlayClass} id="provider-popup-overlay" onClick={() => Popup.remove(id)} />}
     </>,
     target
   );
@@ -76,9 +90,23 @@ const createPopupPortal = ({
   return CurrentPopups[id];
 };
 
-const Overlay = (id: string, overlay?: boolean, removeOnOutClick?: boolean) => {
-  return <span provider-overlay={`${overlay}`} onClick={() => removeOnOutClick && Popup.remove(id)} className="provider-popup-overlay"></span>;
-};
+function setpChild(fadeAnimation: string) {
+  return (child: any) => {
+    if (!child) return;
+    let { clientHeight, clientWidth } = child;
+    const { paddingTop, paddingBottom, paddingLeft, paddingRight } = window.getComputedStyle(child);
+    const padding = [parseInt(paddingTop), parseInt(paddingRight), parseInt(paddingBottom), parseInt(paddingLeft)].join("px ") + "px";
+    const { backgroundColor } = window.getComputedStyle(child);
+    // document.body.style.setProperty("--provider-child-background", `${backgroundColor}`);
+    child.parentElement.style.setProperty("--provider-child-background", `${backgroundColor}`);
+
+    child.style.setProperty("--provider-child-height", `${clientHeight}px`);
+    child.style.setProperty("--provider-child-width", `${clientWidth}px`);
+    child.style.setProperty("--provider-child-padding", `${padding}`);
+    child.setAttribute("fade-type", `${fadeAnimation}-in`);
+    child.style.position = "";
+  };
+}
 
 export const convertToComponentIfNot = ({ Component, componentProps }: PopupComponent) =>
   typeof Component === "function" ? <Component {...componentProps} /> : Component;

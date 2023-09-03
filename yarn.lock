@@ -1196,6 +1196,11 @@ minimatch@^3.1.1:
   dependencies:
     brace-expansion "^1.1.7"
 
+morabaa-utils@^0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/morabaa-utils/-/morabaa-utils-0.0.13.tgz#2e8d8e0710169823f45253431b77b6f662be90a7"
+  integrity sha512-sBO4p8+wdBDw9LLJ+ZaUUIhAuorVlkay0bwNmPHEREg+HXDxokcWTn9b0Y9si/yHKg/xI6Fqr0HmhcsmOoYS/w==
+
 ms@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"

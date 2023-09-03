@@ -1,3 +1,4 @@
+export type FadeAnimation = "width" | "height" | "width-height" | "scale-x" | "scale-y" | "scale-both" | "auto" | "none";
 export interface PopupController {
   create: (props: PopupComponent) => void;
   remove: (id?: string) => void;
@@ -10,22 +11,22 @@ export interface PopupController {
   containerClass?: string;
   childClass?: string;
   offset: { x: number; y: number };
+  fadeAnimation: FadeAnimation;
+  overlayClass?: string;
 }
 export type PopupPlacement =
   | "auto"
+  | "inside"
   | "center"
-  | "top-left"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-right"
   | "top"
   | "bottom"
   | "left"
   | "right"
-  | "top-center"
-  | "bottom-center"
-  | "left-center"
-  | "inside"
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  //Todo remove this
   | "list"
   | "none";
 
@@ -42,6 +43,8 @@ export interface PopupComponent {
   childClass?: string;
   onRemoved?: () => void;
   containerClass?: string;
+  fadeAnimation?: FadeAnimation;
+  overlayClass?: string;
 }
 export interface PopupProps {
   id: string;
@@ -53,16 +56,18 @@ export interface PopupProps {
   viewPort: any;
   key: string;
   childClass: string;
-  containerClass: string;
+  containerClass?: string;
+  fadeAnimation?: FadeAnimation;
 }
 export type BuildProps = (props: PopupComponent) => PopupProps;
 
 export interface PopupContainerProps {
   containerClass?: string;
-  overlayColor?: string;
   primColor?: string;
   childClass?: string;
+  overlayClass?: string;
   offset?: { x: number; y: number };
+  animationTime?: number;
 }
 
 export interface SteupProps {
@@ -72,6 +77,7 @@ export interface SteupProps {
   target: HTMLElement;
   offset: { x: number; y: number };
   onRemoved?: () => void;
+  fadeAnimation?: FadeAnimation;
 }
 
 export interface GetStyleProps {
@@ -93,7 +99,8 @@ export interface PopupPortalProps {
   childClass?: string;
   onRemoved?: () => void;
   containerClass: string;
-  removeOnOutClick?: boolean;
+  fadeAnimation: FadeAnimation;
+  overlayClass?: string;
 }
 
 export interface PrintProps {

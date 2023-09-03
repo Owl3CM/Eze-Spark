@@ -1,0 +1,29 @@
+[data-selected="false"] {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  color: #333;
+}
+[data-disabled="true"] {
+  background-color: #f2f2f2;
+  border-color: #adadad;
+  color: #adadad;
+  opacity: 0.5;
+}
+
+.grid-out {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  padding: var(--l);
+}
+
+.child-class {
+  /* width: 100%;
+  max-width: 200px;
+  padding: 20px; */
+}
+
+.overlay-class {
+  /* background-color: rebeccapurple; */
+  backdrop-filter: blur(3px);
+  /* background-color: var(--lord); */
+}

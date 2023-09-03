@@ -1,0 +1,216 @@
+/* height */
+[fade-type="height-in"] {
+  animation: provider-fade-in-height var(--popup-animation-time) ease-in-out;
+}
+[fade-type="height-out"] {
+  animation: provider-fade-out-height var(--popup-animation-time) ease-in-out;
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  overflow: hidden;
+}
+@keyframes provider-fade-in-height {
+  0% {
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  90% {
+    max-height: var(--provider-child-height);
+    padding: var(--provider-child-padding);
+    overflow: hidden;
+  }
+  100% {
+    overflow: auto;
+  }
+}
+@keyframes provider-fade-out-height {
+  0% {
+    max-height: var(--provider-child-height);
+    padding: var(--provider-child-padding);
+    opacity: 1;
+  }
+  100% {
+    max-height: 0;
+    padding: 0;
+    opacity: 0;
+  }
+}
+/* height */
+
+/* width */
+[fade-type="width-in"] {
+  animation: provider-fade-in-width var(--popup-animation-time) ease-in-out;
+  /* width: var(--provider-child-width); */
+}
+[fade-type="width-out"] {
+  animation: provider-fade-out-width var(--popup-animation-time) ease-in-out;
+  max-width: 0;
+  opacity: 0;
+  padding: 0;
+  overflow: hidden;
+}
+@keyframes provider-fade-in-width {
+  0% {
+    max-width: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  95% {
+    max-width: var(--provider-child-width);
+    padding: var(--provider-child-padding);
+    overflow: hidden;
+  }
+  100% {
+    overflow: auto;
+  }
+}
+@keyframes provider-fade-out-width {
+  0% {
+    max-width: var(--provider-child-width);
+    padding: var(--provider-child-padding);
+    opacity: 1;
+  }
+  100% {
+    max-width: 0;
+    opacity: 0;
+    padding: 0;
+  }
+}
+/* width */
+
+/* width-height */
+[fade-type="width-height-in"] {
+  animation: provider-fade-in-width-height var(--popup-animation-time) ease-in-out;
+}
+[fade-type="width-height-out"] {
+  animation: provider-fade-out-width-height var(--popup-animation-time) ease-in-out;
+  max-width: 0;
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  overflow: hidden;
+}
+@keyframes provider-fade-in-width-height {
+  0% {
+    max-width: 0;
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  90% {
+    max-width: var(--provider-child-width);
+    max-height: var(--provider-child-height);
+    padding: var(--provider-child-padding);
+    overflow: hidden;
+  }
+  100% {
+    overflow: auto;
+  }
+}
+@keyframes provider-fade-out-width-height {
+  0% {
+    max-width: var(--provider-child-width);
+    max-height: var(--provider-child-height);
+    padding: var(--provider-child-padding);
+    opacity: 1;
+  }
+  100% {
+    max-width: 0;
+    max-height: 0;
+    padding: 0;
+    opacity: 0;
+  }
+}
+/* width-height */
+
+/* scale-x */
+[fade-type="scale-x-in"] {
+  animation: provider-fade-in-scale-x var(--popup-animation-time) ease-in-out;
+}
+[fade-type="scale-x-out"] {
+  animation: provider-fade-out-scale-x var(--popup-animation-time) ease-in-out;
+  opacity: 0;
+}
+@keyframes provider-fade-in-scale-x {
+  0% {
+    transform: scale(0, 1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@keyframes provider-fade-out-scale-x {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0, 1);
+    opacity: 0;
+  }
+}
+
+/* scale-x */
+
+/* scale-y */
+[fade-type="scale-y-in"] {
+  animation: provider-fade-in-scale-y var(--popup-animation-time) ease-in-out;
+}
+[fade-type="scale-y-out"] {
+  animation: provider-fade-out-scale-y var(--popup-animation-time) ease-in-out;
+  opacity: 0;
+}
+@keyframes provider-fade-in-scale-y {
+  0% {
+    transform: scale(1, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@keyframes provider-fade-out-scale-y {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1, 0);
+    opacity: 0;
+  }
+}
+/* scale-y */
+
+/* scale-both */
+[fade-type="scale-both-in"] {
+  animation: provider-fade-in-scale-both var(--popup-animation-time) ease-in-out;
+}
+[fade-type="scale-both-out"] {
+  animation: provider-fade-out-scale-both var(--popup-animation-time) ease-in-out;
+  opacity: 0;
+}
+@keyframes provider-fade-in-scale-both {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@keyframes provider-fade-out-scale-both {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+}
+/* scale-both */

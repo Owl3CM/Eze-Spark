@@ -1,6 +1,6 @@
 import { Components, convertToComponentIfNot, CurrentPopups, Popup } from "./ProviderController";
-import { BuildProps, GetStyleProps, PopupComponent, SteupProps } from "./types";
-
+import { FadeAnimation, BuildProps, GetStyleProps, PopupComponent, PopupPlacement, PopupProps, SteupProps } from "./types";
+export const animationDely = 200;
 export const buildProps: BuildProps = (args: PopupComponent) => {
   const target = args.target;
   const placement = args.placement ?? (target ? "auto" : "center");
@@ -11,7 +11,7 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
   const id = args.id ?? "global";
   const childClass = (args.childClass ?? Popup.childClass) as string;
   const onRemoved = args.onRemoved;
-  const containerClass = args.containerClass ?? Popup.containerClass ?? "provider-popup-container";
+  const containerClass = args.containerClass ?? Popup.containerClass;
 
   if (target) target.classList.add("has-popup");
   return {
@@ -27,26 +27,32 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
     childClass,
     onRemoved,
     containerClass,
+    fadeAnimation: args.fadeAnimation ?? Popup.fadeAnimation,
+    overlayClass: args.overlayClass ?? Popup.overlayClass,
   };
 };
 
-export const steup = ({ container, id, placement, target, offset, onRemoved }: SteupProps) => {
+export const steup = ({ container, id, placement, target, offset, onRemoved, fadeAnimation }: SteupProps) => {
   container.style.cssText = getStyle({ container, placement, target, offset });
-  CurrentPopups[id].clear = () => {
-    CurrentPopups[id] = null;
-    container.parentElement?.classList.remove("has-popup");
+
+  CurrentPopups[id].clear = async () => {
+    const parent = container.parentElement;
+    delete CurrentPopups[id];
     delete Components[container.id!];
+
+    container.classList.add("opacity-out");
+    parent?.querySelector("#provider-popup-overlay")?.classList.add("opacity-out");
+
+    (container.firstChild as any)?.setAttribute("fade-type", `${fadeAnimation}-out`);
+    const time = getComputedStyle(document.documentElement).getPropertyValue("--popup-animation-time");
+    await sleep(time ? parseInt(time) : animationDely);
     onRemoved?.();
     Popup.render(Math.random());
+    await sleep(10);
+    parent?.classList.remove("has-popup");
   };
 };
 
-export const removeMe = ({ currentTarget }: React.AnimationEvent<HTMLDivElement>) => {
-  if (currentTarget.classList.contains("pop-out")) {
-    delete Components[currentTarget.id!];
-    Popup.render(Math.random());
-  }
-};
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const isMobile = () => {
   if (typeof navigator === "undefined") return false;
@@ -56,7 +62,7 @@ export const isMobile = () => {
 const getUniqueKey = (target: any, Component: React.ReactNode) => JSON.stringify(target?.getBoundingClientRect() || Component);
 
 const getStyle = ({ container, placement, target, offset }: GetStyleProps) => {
-  let sty = "placement:absolute;";
+  let sty = "pointer-events:none;z-index:1001;" + (container.style.cssText || "");
 
   let targetDim: any = target.getBoundingClientRect();
   targetDim.offsetWidth = target.offsetWidth;
@@ -117,3 +123,27 @@ const getPos: any = {
 
 const getXPOS = (targetDim: any) => (targetDim.x < window.innerWidth / 2 ? "right" : "left");
 const getYPOS = (targetDim: any) => (targetDim.y < window.innerHeight / 2 ? "bottom" : "top");
+
+export function handleOutClick(props: PopupProps) {
+  if (props.removeOnOutClick && !props.overlay) {
+    setTimeout(() => {
+      const popup = document.getElementById(props.id);
+      if (popup) {
+        const remove = props.target
+          ? async ({ target }: any) => {
+              if (popup.contains(target) || props.target?.contains(target)) return;
+              await sleep(10);
+              document.removeEventListener("pointerup", remove);
+              Popup.remove(props.id);
+            }
+          : async ({ target }: any) => {
+              if (popup.firstChild?.contains(target)) return;
+              await sleep(10);
+              document.removeEventListener("pointerup", remove);
+              Popup.remove(props.id);
+            };
+        document.addEventListener("pointerup", remove);
+      }
+    }, 5);
+  }
+}

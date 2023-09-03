@@ -1,5 +1,5 @@
 import React from "react";
-import TestRoutes from "../test/TestRoutes";
+import { TestRoutes } from "../test";
 function App() {
   return <TestRoutes />;
 }
