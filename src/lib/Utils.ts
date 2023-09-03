@@ -5,6 +5,7 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
   const target = args.target;
   const placement = args.placement ?? (target ? "auto" : "center");
   const overlay = args.overlay ?? placement === "center";
+  const hasTarget = !!target;
 
   const Component = convertToComponentIfNot(args);
   const offset = args.offset ?? Popup.offset;
@@ -12,7 +13,9 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
   const childClass = (args.childClass ?? Popup.childClass) as string;
   const onRemoved = args.onRemoved;
   const containerClass = args.containerClass ?? Popup.containerClass;
-  const fadeAnimation = args.fadeAnimation ?? Popup.fadeAnimation;
+  let fadeAnimation = args.fadeAnimation ?? Popup.fadeAnimation;
+
+  if (fadeAnimation === "auto") fadeAnimation = getFadeAnimation(placement, hasTarget);
 
   if (target) target.classList.add("has-popup");
   return {
@@ -30,8 +33,19 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
     containerClass,
     fadeAnimation,
     overlayClass: args.overlayClass ?? Popup.overlayClass,
-    hasTarget: !!target,
+    hasTarget,
   };
+};
+interface GetFadeAnimation {
+  (placement: PopupPlacement, hasTarget: boolean): FadeAnimation;
+}
+
+export const getFadeAnimation: GetFadeAnimation = (placement: PopupPlacement, hasTarget: boolean) => {
+  if (!hasTarget) {
+    if (placement.startsWith("top") || placement.startsWith("bottom")) return "height";
+    if (placement.startsWith("left") || placement.startsWith("right")) return "width";
+  }
+  return "scale-both";
 };
 
 export const steup = ({ container, id, placement, target, offset, onRemoved, fadeAnimation, hasTarget }: SteupProps) => {

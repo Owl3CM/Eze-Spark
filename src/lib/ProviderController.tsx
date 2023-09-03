@@ -9,9 +9,7 @@ export const PopupMe = async (args: PopupComponent) => {
   if (!(Popup as any).init) throw new Error("PopupMe must be used inside a ProviderContainer");
   const alreadyHasPopup = args.target && args.target.classList.contains("has-popup");
   const props = buildProps(args);
-  if (PopupExits(props.id, props.key) && alreadyHasPopup) {
-    return Popup.remove(props.id);
-  }
+  if (PopupExits(props.id, props.key) && alreadyHasPopup) return Popup.remove(props.id);
   await Popup.remove(props.id);
   Components[props.id] = props;
   handleOutClick(props);
