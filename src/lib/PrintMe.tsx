@@ -16,6 +16,7 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
     viewPort: window,
     childClass: "",
     containerClass: "",
+    hasTarget: false,
   };
 
   function cleanAfterPrint() {

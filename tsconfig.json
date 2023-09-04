@@ -26,5 +26,5 @@
     "noEmit": true,
     "types": ["react", "react-dom"]
   },
-  "include": ["src"]
+  "include": ["src/lib"]
 }

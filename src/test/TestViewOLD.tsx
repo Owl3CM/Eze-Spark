@@ -194,7 +194,7 @@ const Example = ({ text, tile, overlay }: ExampleProps) => {
     </div>
   );
 };
-const ExampleTop = ({ text, tile, overlay, remove }: ExampleProps) => {
+const ExampleTop = ({ text, tile, overlay }: ExampleProps) => {
   return (
     <div className="p-l rounded-2x col">
       <h1>Example </h1>
@@ -203,7 +203,6 @@ const ExampleTop = ({ text, tile, overlay, remove }: ExampleProps) => {
       <h2>{`overlay :${overlay}`}</h2>
       <h2
         className="bg-red round-full mr-auto text-center self-center"
-        onClick={() => remove()}
         style={{
           width: "30px",
           height: "30px",
