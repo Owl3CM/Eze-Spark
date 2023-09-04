@@ -7,7 +7,7 @@ export const Components: { [id: string]: PopupProps } = {};
 
 export const PopupMe = async (args: PopupComponent) => {
   if (!(Popup as any).init) throw new Error("PopupMe must be used inside a ProviderContainer");
-  const alreadyHasPopup = args.target && args.target.classList.contains("has-popup");
+  const alreadyHasPopup = args.target && args.target.getAttribute("has-popup");
   const props = buildProps(args);
   if (PopupExits(props.id, props.key) && alreadyHasPopup) return Popup.remove(props.id);
   await Popup.remove(props.id);
@@ -34,7 +34,7 @@ export const Popup: PopupController = {
   r: 0,
   containerClass: "",
   offset: { x: 0, y: 0 },
-  fadeAnimation: "auto",
+  animation: "auto",
   overlayClass: "",
 };
 
@@ -52,7 +52,7 @@ const createPopupPortal = ({
   childClass,
   onRemoved,
   containerClass,
-  fadeAnimation,
+  animation,
   overlayClass,
   hasTarget,
 }: PopupPortalProps) => {
@@ -64,10 +64,10 @@ const createPopupPortal = ({
         id={id}
         className={containerClass}
         popup-has-target={`${hasTarget}`}
-        ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved, fadeAnimation, hasTarget })}>
+        ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved, animation, hasTarget })}>
         <div
           style={{ pointerEvents: "all", position: hasTarget ? "static" : "absolute" }}
-          ref={setpChild(fadeAnimation)}
+          ref={setpChild(animation)}
           id="provider-popup-child"
           className={childClass}>
           {Component}
@@ -82,7 +82,7 @@ const createPopupPortal = ({
   return CurrentPopups[id];
 };
 
-function setpChild(fadeAnimation: string) {
+function setpChild(animation: string) {
   return (child: any) => {
     if (!child) return;
     let { clientHeight, clientWidth } = child;
@@ -95,7 +95,7 @@ function setpChild(fadeAnimation: string) {
     child.style.setProperty("--provider-child-height", `${clientHeight}px`);
     child.style.setProperty("--provider-child-width", `${clientWidth}px`);
     child.style.setProperty("--provider-child-padding", `${padding}`);
-    child.setAttribute("fade-type", `${fadeAnimation}-in`);
+    child.setAttribute("fade-type", `${animation}-in`);
     child.style.position = "";
   };
 }

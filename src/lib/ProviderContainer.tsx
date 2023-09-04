@@ -1,34 +1,37 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Components, Popup, PopupPortal } from "./ProviderController";
 import { PrintPortal } from "./PrintMe";
 import { PopupContainerProps } from "./types";
+import { useLocation } from "react-router-dom";
 
-export const ProviderContainer = ({
-  primColor,
-  offset = { x: 0, y: 0 },
-  containerClass = "",
-  childClass = "",
-  overlayClass = "",
-  animationTime = 300,
-}: PopupContainerProps) => {
-  [Popup.r, Popup.render] = useState<number>(Popup.r);
-  useMemo(() => setupOptions(primColor, containerClass, childClass, offset, overlayClass, animationTime), []);
-  return useMemo(() => <>{Object.values(Components)?.map(portalBuilder) ?? null}</>, [Popup.r]);
+export const ProviderContainer = ({ clearOnNavigation = true, ...props }: PopupContainerProps) => {
+  return (
+    <>
+      <Popups {...props} />
+      {clearOnNavigation && <NavigationListener />}
+    </>
+  );
 };
 
 const portalBuilder = (popProps: any) => (popProps.id === "print-me" ? PrintPortal(popProps) : PopupPortal(popProps));
 
-const setupOptions = (
-  primColor?: string,
-  containerClass?: string,
-  childClass?: string,
-  offset?: { x: number; y: number },
-  overlayClass?: string,
-  animationTime?: number
-) => {
+const setupOptions = (containerClass?: string, childClass?: string, offset?: { x: number; y: number }, overlayClass?: string, animationTime?: number) => {
   const htmlEl = document.documentElement;
-  primColor && htmlEl.style.setProperty("--popup-prim", primColor);
   animationTime && htmlEl.style.setProperty("--popup-animation-time", `${animationTime}ms`);
-
   Object.assign(Popup, { containerClass, childClass, offset, overlayClass, init: true });
+};
+
+const Popups = ({ offset = { x: 0, y: 0 }, containerClass = "", childClass = "", overlayClass = "", animationTime = 300 }: PopupContainerProps) => {
+  [Popup.r, Popup.render] = useState<number>(Popup.r);
+
+  useMemo(() => setupOptions(containerClass, childClass, offset, overlayClass, animationTime), []);
+  return useMemo(() => <>{Object.values(Components)?.map(portalBuilder) ?? null}</>, [Popup.r]);
+};
+
+const NavigationListener = () => {
+  const location = useLocation();
+  React.useEffect(() => {
+    Popup.removeAll();
+  }, [location.pathname]);
+  return null;
 };

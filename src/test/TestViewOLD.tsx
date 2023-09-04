@@ -8,10 +8,10 @@ const Center = () => {
     Component: CenterComponent,
     componentProps: { remove: () => Popup.remove(id) },
     placement: "center",
-    fadeAnimation: "width-height",
+    animation: "width-height",
     // removeOnOutClick: false,
     // childClass: "bg-prim p-x ",
-    // fadeAnimation: "center",
+    // animation: "center",
     // overlay: false,
   });
 };
@@ -23,7 +23,7 @@ const Bottom = () => {
     componentProps: { remove: () => Popup.remove(id) },
     // removeOnOutClick: false,
     childClass: "bg-prim p-x ",
-    fadeAnimation: "auto",
+    animation: "auto",
     placement: "bottom",
     // overlay: false,
   });
@@ -41,7 +41,7 @@ const Top = () => {
     // removeOnOutClick: false,
     // containerClass: "bg-red fixed left-0 top-0",
     childClass: "bg-prim p-x ",
-    // fadeAnimation: "top",
+    // animation: "top",
     // overlay: false,
   });
 };
@@ -70,7 +70,7 @@ const Inside = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       tile: "ok",
     },
     target: e.currentTarget.parentElement as HTMLElement,
-    // fadeAnimation: "inside",
+    // animation: "inside",
     childClass: "bg-prim",
     // onRemoved: () => console.log("removed"),
     // containerClass: "bg-red animation-none",
@@ -88,7 +88,7 @@ const WithTarget = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       tile: "ok",
     },
     target: e.currentTarget as HTMLElement,
-    // fadeAnimation: "none",
+    // animation: "none",
     placement: "top",
     childClass: "bg-prim",
     // onRemoved: () => console.log("removed"),

@@ -19,7 +19,7 @@ const _PopupOptions: PopupComponent = {
   id: "test",
   Component: Component,
   placement: "center",
-  fadeAnimation: "width-height",
+  animation: "width-height",
   childClass: "child-class",
   removeOnOutClick: true,
   // overlay: true,
@@ -28,9 +28,9 @@ const _PopupOptions: PopupComponent = {
 
 let change = (value: any) => {};
 
-// FadeAnimation = "width" | "height" | "width-height" | "scale-x" | "scale-y" | "scale-both" | "auto" | "none";
+// Animation = "width" | "height" | "width-height" | "scale-x" | "scale-y" | "scale-both" | "auto" | "none";
 const popupPlacement = ["auto", "inside", "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right", "none"];
-const fadeAnimation = ["width", "height", "width-height", "scale-x", "scale-y", "scale-both", "auto", "none"];
+const animation = ["width", "height", "width-height", "scale-x", "scale-y", "scale-both", "auto", "none"];
 const removeOnOutClick = ["true", "false"];
 
 const Targets = Array(7).fill("click me");
@@ -48,7 +48,7 @@ const Tester = ({}: Props) => {
       <div className="mx-auto row-center gap-2x">
         {/* <JsonBuilder json={_PopupOptions} /> */}
         <ButtonsContainer title="placement" options={popupPlacement} />
-        <ButtonsContainer title="fadeAnimation" options={fadeAnimation} />
+        <ButtonsContainer title="animation" options={animation} />
         <ButtonsContainer title="removeOnOutClick" options={removeOnOutClick} />
       </div>
       <div className="m-auto text-x">
@@ -93,7 +93,7 @@ const Tester = ({}: Props) => {
           title="targets"
           options={Targets}
           onClick={(e: any, i) => {
-            let id = i;
+            let id = `${i}`;
             let placement = _PopupOptions.placement === "center" ? "auto" : _PopupOptions.placement;
             PopupMe({ ..._PopupOptions, target: e.currentTarget.parentElement, placement, id });
           }}
@@ -103,7 +103,7 @@ const Tester = ({}: Props) => {
           title="targets"
           options={Targets}
           onClick={(e: any, i) => {
-            let id = i;
+            let id = `${i}`;
             let placement = _PopupOptions.placement === "center" ? "auto" : _PopupOptions.placement;
             PopupMe({ ..._PopupOptions, target: e.currentTarget.parentElement, placement, id });
           }}
@@ -126,7 +126,7 @@ const ButtonsContainer = ({ title, options, onClick }: ButtonsContainerProps) =>
     className="text-center text-2x text-shark bg-prim py-m px-3x round-l"
     onClick={() => {
       PopupMe({
-        fadeAnimation: "width-height",
+        animation: "width-height",
         Component: (
           <div className="gap-x round-l col p-x">
             {options.map((value, i) => {

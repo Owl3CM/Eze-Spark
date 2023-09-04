@@ -2,16 +2,19 @@ import React from "react";
 import { Popup, PopupMe, PrintMe } from "../lib";
 import Tester from "./components/Tester";
 import TestViewOLD from "./TestViewOLD";
+import PopupExample from "./components/FirstExample";
+import SecondExample from "./components/SecondExample";
 
 const TestView = () => {
-  return (
-    <div className="col-center gap-2x p-x ">
-      <div onClick={popupFunction} className="bg-prim round-l p-3x">
-        show infos
-      </div>
-    </div>
-  );
-  return <Tester />;
+  // return (
+  //   <div className="col-center gap-2x p-x ">
+  //     <div onClick={popupFunction} className="bg-prim round-l p-3x">
+  //       show infos
+  //     </div>
+  //   </div>
+  // );
+  return <SecondExample />;
+  // return <Tester />;
 };
 
 const popupFunction = ({ target }: any) => {
@@ -26,7 +29,7 @@ const popupFunction = ({ target }: any) => {
         Popup.remove(id);
       },
     },
-    fadeAnimation: "height",
+    animation: "height",
   });
 };
 

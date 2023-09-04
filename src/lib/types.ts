@@ -1,4 +1,19 @@
-export type FadeAnimation = "width" | "height" | "width-height" | "scale-x" | "scale-y" | "scale-both" | "auto" | "none";
+// export type Animation = "width" | "height" | "width-height" | "scale-x" | "scale-y" | "scale-both" | "auto" | "none";
+export type Animation =
+  | "width"
+  | "height"
+  | "width-height"
+  | "scale-x"
+  | "scale-y"
+  | "scale-both"
+  | "auto"
+  | "slide-bottom"
+  | "slide-top"
+  | "slide-left"
+  | "slide-right"
+  | "debounce"
+  | "fade"
+  | "none";
 export interface PopupController {
   create: (props: PopupComponent) => void;
   remove: (id?: string) => void;
@@ -11,7 +26,7 @@ export interface PopupController {
   containerClass?: string;
   childClass?: string;
   offset: { x: number; y: number };
-  fadeAnimation: FadeAnimation;
+  animation: Animation;
   overlayClass?: string;
 }
 export type PopupPlacement =
@@ -26,8 +41,6 @@ export type PopupPlacement =
   | "top-right"
   | "bottom-left"
   | "bottom-right"
-  //Todo remove this
-  | "list"
   | "none";
 
 export interface PopupComponent {
@@ -43,7 +56,7 @@ export interface PopupComponent {
   childClass?: string;
   onRemoved?: () => void;
   containerClass?: string;
-  fadeAnimation?: FadeAnimation;
+  animation?: Animation;
   overlayClass?: string;
 }
 export interface PopupProps {
@@ -57,7 +70,7 @@ export interface PopupProps {
   key: string;
   childClass: string;
   containerClass?: string;
-  fadeAnimation?: FadeAnimation;
+  animation?: Animation;
   hasTarget: boolean;
 }
 export type BuildProps = (props: PopupComponent) => PopupProps;
@@ -69,6 +82,7 @@ export interface PopupContainerProps {
   overlayClass?: string;
   offset?: { x: number; y: number };
   animationTime?: number;
+  clearOnNavigation?: boolean;
 }
 
 export interface SteupProps {
@@ -78,7 +92,7 @@ export interface SteupProps {
   target: HTMLElement;
   offset: { x: number; y: number };
   onRemoved?: () => void;
-  fadeAnimation?: FadeAnimation;
+  animation?: Animation;
   hasTarget: boolean;
 }
 
@@ -102,7 +116,7 @@ export interface PopupPortalProps {
   childClass?: string;
   onRemoved?: () => void;
   containerClass: string;
-  fadeAnimation: FadeAnimation;
+  animation: Animation;
   overlayClass?: string;
   hasTarget: boolean;
 }

@@ -3,7 +3,11 @@ import { Route, Routes } from "react-router-dom";
 import TestView from "./TestView";
 import { Link } from "react-router-dom";
 
-const _TestRoutes = [{ path: "/", Component: TestView, title: "home" }];
+const _TestRoutes = [
+  //
+  { path: "/", Component: TestView, title: "home" },
+  { path: "/test", Component: TestView, title: "test" },
+];
 const TestRoutes = () => {
   return (
     <>

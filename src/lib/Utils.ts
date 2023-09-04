@@ -1,11 +1,11 @@
 import { Components, convertToComponentIfNot, CurrentPopups, Popup } from "./ProviderController";
-import { FadeAnimation, BuildProps, GetStyleProps, PopupComponent, PopupPlacement, PopupProps, SteupProps } from "./types";
-export const animationDely = 200;
+import { Animation, BuildProps, GetStyleProps, PopupComponent, PopupPlacement, PopupProps, SteupProps } from "./types";
+
 export const buildProps: BuildProps = (args: PopupComponent) => {
   const target = args.target;
-  const placement = args.placement ?? (target ? "auto" : "center");
-  const overlay = args.overlay ?? placement === "center";
   const hasTarget = !!target;
+  const placement = args.placement === "auto" && !hasTarget ? "center" : (args.placement as PopupPlacement);
+  const overlay = args.overlay ?? placement === "center";
 
   const Component = convertToComponentIfNot(args);
   const offset = args.offset ?? Popup.offset;
@@ -13,11 +13,11 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
   const childClass = (args.childClass ?? Popup.childClass) as string;
   const onRemoved = args.onRemoved;
   const containerClass = args.containerClass ?? Popup.containerClass;
-  let fadeAnimation = args.fadeAnimation ?? Popup.fadeAnimation;
+  let animation = args.animation ?? Popup.animation;
 
-  if (fadeAnimation === "auto") fadeAnimation = getFadeAnimation(placement, hasTarget);
+  if (animation === "auto") animation = getFadeAnimation(placement, hasTarget);
 
-  if (target) target.classList.add("has-popup");
+  if (target) target.setAttribute("has-popup", "true");
   return {
     Component,
     id,
@@ -31,24 +31,28 @@ export const buildProps: BuildProps = (args: PopupComponent) => {
     childClass,
     onRemoved,
     containerClass,
-    fadeAnimation,
+    animation,
     overlayClass: args.overlayClass ?? Popup.overlayClass,
     hasTarget,
   };
 };
 interface GetFadeAnimation {
-  (placement: PopupPlacement, hasTarget: boolean): FadeAnimation;
+  (placement: PopupPlacement, hasTarget: boolean): Animation;
 }
 
 export const getFadeAnimation: GetFadeAnimation = (placement: PopupPlacement, hasTarget: boolean) => {
   if (!hasTarget) {
-    if (placement.startsWith("top") || placement.startsWith("bottom")) return "height";
-    if (placement.startsWith("left") || placement.startsWith("right")) return "width";
+    // if (placement.startsWith("left") || placement.startsWith("right")) return "width";
+    if (placement.startsWith("top")) return "slide-top";
+    if (placement.startsWith("bottom")) return "slide-bottom";
+    if (placement.startsWith("left")) return "slide-left";
+    if (placement.startsWith("right")) return "slide-right";
+    if (placement === "center") return "scale-both";
   }
-  return "scale-both";
+  return "width-height";
 };
 
-export const steup = ({ container, id, placement, target, offset, onRemoved, fadeAnimation, hasTarget }: SteupProps) => {
+export const steup = ({ container, id, placement, target, offset, onRemoved, animation, hasTarget }: SteupProps) => {
   container.style.cssText = getStyle({ container, placement, target, offset, hasTarget });
 
   CurrentPopups[id].clear = async () => {
@@ -59,13 +63,13 @@ export const steup = ({ container, id, placement, target, offset, onRemoved, fad
     container.classList.add("opacity-out");
     parent?.querySelector("#provider-popup-overlay")?.classList.add("opacity-out");
 
-    (container.firstChild as any)?.setAttribute("fade-type", `${fadeAnimation}-out`);
+    (container.firstChild as any)?.setAttribute("fade-type", `${animation}-out`);
     const time = getComputedStyle(document.documentElement).getPropertyValue("--popup-animation-time");
-    await sleep(time ? parseInt(time) : animationDely);
+    await sleep(parseInt(time) ?? 300);
     onRemoved?.();
     Popup.render(Math.random());
-    await sleep(10);
-    parent?.classList.remove("has-popup");
+    await sleep(1);
+    parent?.removeAttribute("has-popup");
   };
 };
 
@@ -95,6 +99,7 @@ const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleP
   if (fixFucntion) placement = fixFucntion(targetDim);
 
   container.setAttribute("placement", placement);
+  // (container.firstChild as any)?.setAttribute("child-placement", placement);
 
   placement.split("-").forEach((pos) => {
     sty += getPosForTarget[pos]?.({ targetDim, containerDim });
@@ -105,11 +110,8 @@ const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleP
 
 const getStyleWithoutTarget = ({ sty, container, placement, offset }: any) => {
   container.setAttribute("placement", placement);
-
-  placement.split("-").forEach((pos: string) => {
-    sty += getPos[pos]?.();
-  });
-
+  (container.firstChild as any)?.setAttribute("child-placement", placement);
+  sty += getPos[placement.split("-")[0]]?.();
   sty += `transform:translate(${offset.x}px,${offset.y}px);`;
   return sty;
 };
@@ -117,16 +119,16 @@ const getStyleWithoutTarget = ({ sty, container, placement, offset }: any) => {
 const getPos: any = {
   center: () => `inset:0;padding:100px 10px;`,
   top: () => {
-    return `top:${0}px;`;
+    return `top:0;left:0;right:0;padding-bottom:100px;`;
   },
   bottom: () => {
-    return `bottom:${0}px;`;
+    return `bottom:0;left:0;right:0;padding-top:100px;`;
   },
   left: () => {
-    return `left:${0}px;`;
+    return `left:0;bottom:0;top:0;padding-right:100px;`;
   },
   right: () => {
-    return `right:${0}px;`;
+    return `right:0;bottom:0;top:0;padding-left:100px;`;
   },
 };
 
