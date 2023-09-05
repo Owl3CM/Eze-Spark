@@ -4,15 +4,15 @@ import { PopupMe } from "../../lib";
 const PopupExample = () => {
   return (
     <div className="test-container">
-      <p
+      <div
         className="test-button"
-        onClick={({ target }) =>
+        onClick={({ target }: any) =>
           PopupMe(<PopupChild />, {
             target,
           })
         }>
         Open Popup
-      </p>
+      </div>
     </div>
   );
 };

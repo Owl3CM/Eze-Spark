@@ -15,7 +15,7 @@ export type Animation =
   | "none";
 export interface PopupController {
   create: (Component: PopupComponentType, options: PopupOptions) => void;
-  remove: (id?: string) => void;
+  remove: (id: string) => void;
   removeAll: () => void;
   getPopup: (id: string) => PopupComponentArgs;
   getPopups: () => { [id: string]: PopupComponentArgs };
@@ -121,6 +121,7 @@ export interface PopupPortalProps {
   animation: Animation;
   overlayClass?: string;
   hasTarget: boolean;
+  removeOnOutClick?: boolean;
 }
 
 export interface PrintProps {

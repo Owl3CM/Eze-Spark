@@ -25,7 +25,7 @@ export const Popup: PopupController = {
   render: (r: number) => {
     Popup.r = r;
   },
-  remove: async (id: string = "global") => {
+  remove: async (id: string) => {
     await CurrentPopups[id]?.clear();
   },
   removeAll: () => {
@@ -55,6 +55,7 @@ const createPopupPortal = ({
   animation,
   overlayClass,
   hasTarget,
+  removeOnOutClick,
 }: PopupPortalProps) => {
   if (!hasTarget) target = document.body;
   CurrentPopups[id] = createPortal(
@@ -69,7 +70,7 @@ const createPopupPortal = ({
           {Component}
         </div>
       </div>
-      {overlay && <div className={overlayClass} id="provider-popup-overlay" onClick={() => Popup.remove(id)} />}
+      {overlay && <div className={overlayClass} id="provider-popup-overlay" onClick={() => removeOnOutClick && Popup.remove(id)} />}
     </>,
     target
   );
