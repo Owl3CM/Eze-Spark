@@ -1,98 +1,117 @@
 import React from "react";
-import { PopupMe, PopupPlacement } from "../../lib";
+import { Popup, PopupMe } from "../../lib";
 
-const popupFunction = ({ title, target, placement, animation }: any) => {
+let animation = "auto" as any;
+let placement = "auto" as any;
+
+const PopupAnimationsContainer = (target) => {
+  const id = "popup-animations-container";
+  // the component to be rendered inside the popup
+  const Component = (
+    <div className="grid-small">
+      {animations.map((anim) => (
+        <div
+          className={`button ${animation === anim ? "selected" : ""}`}
+          key={anim}
+          style={{
+            opacity: animation === anim ? 1 : 0.7,
+            fontSize: "10px",
+          }}
+          onClick={() => {
+            animation = anim;
+            Popup.remove(id);
+          }}>
+          {anim}
+        </div>
+      ))}
+    </div>
+  );
+
   PopupMe({
-    Component: PopupChild,
-    componentProps: { title },
+    id,
+    Component,
     animation,
-    placement,
-    target,
+    // placement,
+    // target,
+  });
+};
+
+const PopupPlacementContainer = (target) => {
+  const id = "popup-placement-container";
+  // the component to be rendered inside the popup
+  const Component = (
+    <div className="grid-small">
+      {placementsWithTarget.map((place) => (
+        <div
+          className={`button ${placement === place ? "selected" : ""}`}
+          key={place}
+          style={{
+            opacity: placement === place ? 1 : 0.7,
+            fontSize: "10px",
+          }}
+          onClick={() => {
+            placement = place;
+            Popup.remove(id);
+          }}>
+          {place}
+        </div>
+      ))}
+    </div>
+  );
+
+  PopupMe({
+    id,
+    Component,
+    // animation,
+    // placement,
+    // target,
   });
 };
 
 const PopupExample = () => {
-  const [title, setTitle] = React.useState("Hello World !");
-  const [placement, setPlacement] = React.useState<PopupPlacement>("auto");
-  const [animation, setAnimation] = React.useState("auto");
+  const [title, setTitle] = React.useState("Hello World ");
+
   return (
-    <div className="col" style={{ margin: "auto" }}>
-      <div>
-        Animation
-        <div className="wrap">
-          {animations.map((anim) => (
-            <div
-              className={`button ${animation === anim ? "selected" : ""}`}
-              key={anim}
-              style={{
-                opacity: animation === anim ? 1 : 0.7,
-                fontSize: "10px",
-              }}
-              onClick={() => {
-                setAnimation(anim as any);
-                popupFunction({ title, animation: anim, placement });
-              }}>
-              {anim}
-            </div>
-          ))}
+    <div className="col bg">
+      <div className="wrapper center">
+        <div
+          onClick={(e: any) => {
+            PopupAnimationsContainer(e.target);
+          }}
+          className="button">
+          {"Animation"}
         </div>
-      </div>
-      <div>
-        Placement with target
-        <div className="wrap">
-          {placements.map((plac) => (
-            <div
-              className={`button ${placement === plac ? "selected" : ""}`}
-              key={plac}
-              style={{
-                opacity: placement === plac ? 1 : 0.7,
-                fontSize: "10px",
-              }}
-              onClick={({ target }) => {
-                setPlacement(plac as any);
-                popupFunction({ title, target, animation, placement: plac });
-              }}>
-              {plac}
-            </div>
-          ))}
+        <div
+          className="button"
+          onClick={(e: any) => {
+            PopupPlacementContainer(e.target);
+          }}>
+          {"Placement"}
         </div>
-      </div>
-
-      <div>
-        Placement
-        <div className="wrap">
-          {placementsWithTarget.map((plac) => (
-            <div
-              className={`button ${placement === plac ? "selected" : ""}`}
-              key={plac}
-              style={{
-                opacity: placement === plac ? 1 : 0.7,
-                fontSize: "10px",
-              }}
-              onClick={() => {
-                setPlacement(plac as any);
-                popupFunction({ title, animation, placement: plac });
-              }}>
-              {plac}
-            </div>
-          ))}
+        <input className="input" type="text" value={title} onChange={(e) => setTitle(e.target.value)} onFocus={({ target }) => target.select()} />
+        <div
+          className="button"
+          onClick={(e: any) => {
+            PopupMe({
+              Component: <PopupChild placement={placement} animation={animation} title={title} />,
+              animation,
+              placement,
+              target: e.target,
+            });
+          }}>
+          {"Relative to me"}
         </div>
-      </div>
-
-      <input className="input" type="text" value={title} onChange={(e) => setTitle(e.target.value)} onFocus={({ target }) => target.select()} />
-      <div
-        className="button"
-        onClick={({ target }) => {
-          popupFunction({ title, target, animation, placement });
-        }}>
-        Relative to me
-      </div>
-      <div
-        className="button"
-        onClick={({}) => {
-          popupFunction({ title, animation, placement });
-        }}>
-        Relative to body
+        <div
+          className="button"
+          onClick={() => {
+            PopupMe({
+              Component: <PopupChild placement={placement} animation={animation} title={title} />,
+              animation,
+              placement,
+            });
+          }}>
+          {"Relative to body"}
+        </div>
       </div>
     </div>
   );
@@ -100,11 +119,22 @@ const PopupExample = () => {
 
 export default PopupExample;
 
-const PopupChild = ({ title }: any) => {
+const PopupChild = ({ title, animation, placement }: any) => {
   return (
     <div className="col min-w-max">
-      <p className="text-light">passed title</p>
-      <p className="text-red"> {title} </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
     </div>
   );
 };
@@ -149,7 +179,6 @@ const animations = [
   "slide-top",
   "slide-left",
   "slide-right",
-  "debounce",
   "fade",
   "none",
 ];

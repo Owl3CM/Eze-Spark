@@ -11,7 +11,6 @@ export type Animation =
   | "slide-top"
   | "slide-left"
   | "slide-right"
-  | "debounce"
   | "fade"
   | "none";
 export interface PopupController {

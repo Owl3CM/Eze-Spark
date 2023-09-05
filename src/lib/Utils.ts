@@ -2,6 +2,8 @@ import { Components, convertToComponentIfNot, CurrentPopups, Popup } from "./Pro
 import { Animation, BuildProps, GetStyleProps, PopupComponent, PopupPlacement, PopupProps, SteupProps } from "./types";
 
 export const buildProps: BuildProps = (args: PopupComponent) => {
+  if (!args.placement) args.placement = "auto";
+  if (!args.animation) args.animation = "auto";
   const target = args.target;
   const hasTarget = !!target;
   const placement = args.placement === "auto" && !hasTarget ? "center" : (args.placement as PopupPlacement);
@@ -51,7 +53,10 @@ export const getFadeAnimation: GetFadeAnimation = (placement: PopupPlacement, ha
   }
   return "width-height";
 };
-
+let childDim = {
+  height: 0,
+  width: 0,
+};
 export const steup = ({ container, id, placement, target, offset, onRemoved, animation, hasTarget }: SteupProps) => {
   container.style.cssText = getStyle({ container, placement, target, offset, hasTarget });
 
@@ -73,6 +78,29 @@ export const steup = ({ container, id, placement, target, offset, onRemoved, ani
   };
 };
 
+export function setpChild(animation: string) {
+  return (child: any) => {
+    if (!child) return;
+    let { clientHeight, clientWidth } = child;
+    const { paddingTop, paddingBottom, paddingLeft, paddingRight } = getChildPadding(child);
+
+    const padding = [paddingTop, paddingRight, paddingBottom, paddingLeft].join("px ") + "px";
+    const { backgroundColor } = window.getComputedStyle(child);
+    // document.body.style.setProperty("--provider-child-background", `${backgroundColor}`);
+    child.parentElement.style.setProperty("--provider-child-background", `${backgroundColor}`);
+    childDim = {
+      height: clientHeight + paddingTop + paddingBottom,
+      width: clientWidth + paddingLeft + paddingRight,
+    };
+
+    child.style.setProperty("--provider-child-height", `${clientHeight}px`);
+    child.style.setProperty("--provider-child-width", `${clientWidth}px`);
+    child.style.setProperty("--provider-child-padding", `${padding}`);
+    child.setAttribute("fade-type", `${animation}-in`);
+    child.style.position = "";
+  };
+}
+
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const isMobile = () => {
   if (typeof navigator === "undefined") return false;
@@ -92,8 +120,8 @@ const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleP
   targetDim.offsetHeight = target.offsetHeight;
 
   let containerDim: any = container.getBoundingClientRect();
-  containerDim.offsetWidth = container.offsetWidth;
-  containerDim.offsetHeight = container.offsetHeight;
+  containerDim.offsetHeight = childDim.height;
+  containerDim.offsetWidth = childDim.width;
 
   const fixFucntion = fixPostion[placement];
   if (fixFucntion) placement = fixFucntion(targetDim);
@@ -158,6 +186,7 @@ const getPosForTarget: any = {
   left: ({ targetDim, containerDim }: any) => {
     let emptySpace = targetDim.x + targetDim.offsetWidth - containerDim.offsetWidth;
     if (emptySpace > 0) emptySpace = 0;
+    document.body.style.setProperty("--popup-mark-postion-x", `${targetDim.width / 2 - emptySpace}px`);
     return `right:${emptySpace}px;`;
   },
   right: ({ targetDim, containerDim }: any) => {
@@ -165,12 +194,23 @@ const getPosForTarget: any = {
     const x = targetDim.x + containerDim.offsetWidth - window.innerWidth;
     if (x > 0) emptySpace = x > emptySpace ? emptySpace : x;
     else emptySpace = 0;
+    document.body.style.setProperty("--popup-mark-postion-x", `${emptySpace + targetDim.width / 2}px`);
     return `left:${-emptySpace}px;`;
   },
 };
 
 const getXPOS = (targetDim: any) => (targetDim.x < window.innerWidth / 2 ? "right" : "left");
 const getYPOS = (targetDim: any) => (targetDim.y < window.innerHeight / 2 ? "bottom" : "top");
+
+function getChildPadding(child: any) {
+  const { paddingTop, paddingBottom, paddingLeft, paddingRight } = window.getComputedStyle(child);
+  return {
+    paddingTop: parseFloat(paddingTop),
+    paddingBottom: parseFloat(paddingBottom),
+    paddingLeft: parseFloat(paddingLeft),
+    paddingRight: parseFloat(paddingRight),
+  };
+}
 
 export function handleOutClick(props: PopupProps) {
   if (props.removeOnOutClick && !props.overlay) {

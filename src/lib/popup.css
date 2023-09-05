@@ -56,19 +56,19 @@
   }
   [placement="bottom-right"]::before {
     top: -5px;
-    left: 10px;
+    left:  var(--popup-mark-postion-x);
   }
   [placement="bottom-left"]::before {
     top: -5px;
-    right: 10px;
+    right:  var(--popup-mark-postion-x);
   }
   [placement="top-left"]::before {
     bottom: -5px;
-    right: 10px;
+    right:  var(--popup-mark-postion-x);
   }
   [placement="top-right"]::before {
     bottom: -5px;
-    left: 10px;
+    left:  var(--popup-mark-postion-x);
   }
   [placement="inside"]::before,
   [placement="list"]::before,

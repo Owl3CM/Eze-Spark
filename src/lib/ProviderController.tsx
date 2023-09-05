@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { PopupComponent, PopupPortalProps, PopupController, PopupProps } from "./types";
-import { buildProps, handleOutClick, sleep, steup } from "./Utils";
+import { buildProps, handleOutClick, setpChild, sleep, steup } from "./Utils";
 
 export const CurrentPopups: { [id: string]: any } = {};
 export const Components: { [id: string]: PopupProps } = {};
@@ -65,11 +65,7 @@ const createPopupPortal = ({
         className={containerClass}
         popup-has-target={`${hasTarget}`}
         ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved, animation, hasTarget })}>
-        <div
-          style={{ pointerEvents: "all", position: hasTarget ? "static" : "absolute" }}
-          ref={setpChild(animation)}
-          id="provider-popup-child"
-          className={childClass}>
+        <div style={{ pointerEvents: "all" }} ref={setpChild(animation)} id="provider-popup-child" className={childClass}>
           {Component}
         </div>
       </div>
@@ -81,24 +77,6 @@ const createPopupPortal = ({
 
   return CurrentPopups[id];
 };
-
-function setpChild(animation: string) {
-  return (child: any) => {
-    if (!child) return;
-    let { clientHeight, clientWidth } = child;
-    const { paddingTop, paddingBottom, paddingLeft, paddingRight } = window.getComputedStyle(child);
-    const padding = [parseInt(paddingTop), parseInt(paddingRight), parseInt(paddingBottom), parseInt(paddingLeft)].join("px ") + "px";
-    const { backgroundColor } = window.getComputedStyle(child);
-    // document.body.style.setProperty("--provider-child-background", `${backgroundColor}`);
-    child.parentElement.style.setProperty("--provider-child-background", `${backgroundColor}`);
-
-    child.style.setProperty("--provider-child-height", `${clientHeight}px`);
-    child.style.setProperty("--provider-child-width", `${clientWidth}px`);
-    child.style.setProperty("--provider-child-padding", `${padding}`);
-    child.setAttribute("fade-type", `${animation}-in`);
-    child.style.position = "";
-  };
-}
 
 export const convertToComponentIfNot = ({ Component, componentProps }: PopupComponent) =>
   typeof Component === "function" ? <Component {...componentProps} /> : Component;
