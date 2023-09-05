@@ -1,40 +1,40 @@
 import { Components, convertToComponentIfNot, CurrentPopups, Popup } from "./ProviderController";
-import { Animation, BuildProps, GetStyleProps, PopupComponent, PopupPlacement, PopupProps, SteupProps } from "./types";
+import { Animation, BuildProps, GetStyleProps, PopupComponentArgs, PopupComponentType, PopupOptions, PopupPlacement, PopupProps, SteupProps } from "./types";
 
-export const buildProps: BuildProps = (args: PopupComponent) => {
-  if (!args.placement) args.placement = "auto";
-  if (!args.animation) args.animation = "auto";
-  const target = args.target;
+export const buildProps: BuildProps = (Component: PopupComponentType, options: PopupOptions) => {
+  if (!options.placement) options.placement = "auto";
+  if (!options.animation) options.animation = "auto";
+  const target = options.target;
   const hasTarget = !!target;
-  const placement = args.placement === "auto" && !hasTarget ? "center" : (args.placement as PopupPlacement);
-  const overlay = args.overlay ?? placement === "center";
+  const placement = options.placement === "auto" && !hasTarget ? "center" : options.placement;
+  const overlay = options.overlay ?? placement === "center";
 
-  const Component = convertToComponentIfNot(args);
-  const offset = args.offset ?? Popup.offset;
-  const id = args.id ?? "global";
-  const childClass = (args.childClass ?? Popup.childClass) as string;
-  const onRemoved = args.onRemoved;
-  const containerClass = args.containerClass ?? Popup.containerClass;
-  let animation = args.animation ?? Popup.animation;
+  const _Component = convertToComponentIfNot({ Component, componentProps: options.componentProps });
+  const offset = options.offset ?? Popup.offset;
+  const id = options.id ?? "global";
+  const childClass = (options.childClass ?? Popup.childClass) as string;
+  const onRemoved = options.onRemoved;
+  const containerClass = options.containerClass ?? Popup.containerClass;
+  let animation = options.animation ?? Popup.animation;
 
   if (animation === "auto") animation = getFadeAnimation(placement, hasTarget);
 
   if (target) target.setAttribute("has-popup", "true");
   return {
-    Component,
+    Component: _Component,
     id,
     placement,
     overlay,
     target,
-    key: getUniqueKey(target, Component) + id,
-    viewPort: args.viewPort ?? window,
-    removeOnOutClick: args.removeOnOutClick !== false,
+    key: getUniqueKey(target, _Component) + id,
+    viewPort: options.viewPort ?? window,
+    removeOnOutClick: options.removeOnOutClick !== false,
     offset,
     childClass,
     onRemoved,
     containerClass,
     animation,
-    overlayClass: args.overlayClass ?? Popup.overlayClass,
+    overlayClass: options.overlayClass ?? Popup.overlayClass,
     hasTarget,
   };
 };

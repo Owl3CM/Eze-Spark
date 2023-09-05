@@ -9,7 +9,7 @@ import React from "react";
 createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <App />
-    <ProviderContainer animationTime={300} childClass="child-class" overlayClass="overlay-class" />
+    <ProviderContainer />
     <ToggleTheme />
   </BrowserRouter>
 );

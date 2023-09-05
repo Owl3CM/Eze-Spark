@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Popup, PopupComponent, PopupMe } from "../../lib";
+import { Popup, PopupOptions, PopupMe } from "../../lib";
 import { JsonBuilder } from "morabaa-utils";
 import { Button } from "../components";
 import Input from "./Input";
@@ -15,7 +15,7 @@ const Component = ({ remove, id }: any) => {
   );
 };
 
-const _PopupOptions: PopupComponent = {
+const _PopupOptions: PopupOptions = {
   id: "test",
   Component: Component,
   placement: "center",
@@ -38,7 +38,7 @@ type Props = {};
 
 const Tester = ({}: Props) => {
   const [, render] = useState(0);
-  change = React.useCallback(({ key, value }: { key: keyof PopupComponent; value: any }) => {
+  change = React.useCallback(({ key, value }: { key: keyof PopupOptions; value: any }) => {
     _PopupOptions[key] = value;
     render((prev) => prev + 1);
   }, []);

@@ -14,11 +14,11 @@ export type Animation =
   | "fade"
   | "none";
 export interface PopupController {
-  create: (props: PopupComponent) => void;
+  create: (Component: PopupComponentType, options: PopupOptions) => void;
   remove: (id?: string) => void;
   removeAll: () => void;
-  getPopup: (id: string) => PopupComponent;
-  getPopups: () => { [id: string]: PopupComponent };
+  getPopup: (id: string) => PopupComponentArgs;
+  getPopups: () => { [id: string]: PopupComponentArgs };
   getPopupIds: () => string[];
   r: number;
   render: (r: number) => void;
@@ -42,9 +42,9 @@ export type PopupPlacement =
   | "bottom-right"
   | "none";
 
-export interface PopupComponent {
+export type PopupComponentType = React.ReactNode | React.FC<any>;
+export interface PopupOptions {
   id?: string;
-  Component: React.ReactNode | React.FC<any>;
   placement?: PopupPlacement;
   target?: HTMLElement;
   overlay?: boolean;
@@ -57,6 +57,9 @@ export interface PopupComponent {
   containerClass?: string;
   animation?: Animation;
   overlayClass?: string;
+}
+export interface PopupComponentArgs extends PopupOptions {
+  Component: React.ReactNode | React.FC<any>;
 }
 export interface PopupProps {
   id: string;
@@ -72,7 +75,7 @@ export interface PopupProps {
   animation?: Animation;
   hasTarget: boolean;
 }
-export type BuildProps = (props: PopupComponent) => PopupProps;
+export type BuildProps = (Component: PopupComponentType, options: PopupOptions) => PopupProps;
 
 export interface PopupContainerProps {
   containerClass?: string;

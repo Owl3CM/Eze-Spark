@@ -4,7 +4,11 @@ import { PopupMe } from "../../lib";
 const PopupExample = () => {
   return (
     <div className="col" style={{ margin: "auto" }}>
-      <p className="button" onClick={() => PopupMe(<PopupChild />)}>
+      <p
+        className="button"
+        onClick={() => {
+          PopupMe(<PopupChild title={"Hello World"} />);
+        }}>
         Open Popup
       </p>
     </div>
@@ -13,10 +17,11 @@ const PopupExample = () => {
 
 export default PopupExample;
 
-const PopupChild = () => {
+const PopupChild = ({ title }: any) => {
   return (
     <div className="col" style={{ padding: 30 }}>
-      <p className="text-red"> Hello World </p>
+      <p className="text-light">passed title</p>
+      <p className="text-red"> {title} </p>
     </div>
   );
 };

@@ -1,14 +1,14 @@
 import { createPortal } from "react-dom";
-import { PopupComponent, PopupPortalProps, PopupController, PopupProps } from "./types";
+import { PopupOptions, PopupPortalProps, PopupController, PopupProps, PopupComponentType } from "./types";
 import { buildProps, handleOutClick, setpChild, sleep, steup } from "./Utils";
 
 export const CurrentPopups: { [id: string]: any } = {};
 export const Components: { [id: string]: PopupProps } = {};
 
-export const PopupMe = async (args: PopupComponent) => {
+export const PopupMe = async (Component: PopupComponentType, options: PopupOptions = {}) => {
   if (!(Popup as any).init) throw new Error("PopupMe must be used inside a ProviderContainer");
-  const alreadyHasPopup = args.target && args.target.getAttribute("has-popup");
-  const props = buildProps(args);
+  const alreadyHasPopup = options.target && options.target.getAttribute("has-popup");
+  const props = buildProps(Component, options);
   if (PopupExits(props.id, props.key) && alreadyHasPopup) return Popup.remove(props.id);
   await Popup.remove(props.id);
   Components[props.id] = props;
@@ -78,5 +78,5 @@ const createPopupPortal = ({
   return CurrentPopups[id];
 };
 
-export const convertToComponentIfNot = ({ Component, componentProps }: PopupComponent) =>
+export const convertToComponentIfNot = ({ Component, componentProps }: { Component: PopupComponentType; componentProps: any }) =>
   typeof Component === "function" ? <Component {...componentProps} /> : Component;
