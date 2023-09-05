@@ -142,7 +142,7 @@ const PopupChild = ({ title, animation, placement }: any) => {
 const placements = [
   //
   "auto",
-  "inside",
+  "center",
   "top",
   "top-left",
   "top-right",
@@ -156,7 +156,7 @@ const placements = [
 const placementsWithTarget = [
   //
   "auto",
-  "center",
+  "inside",
   "top",
   "top-left",
   "top-right",

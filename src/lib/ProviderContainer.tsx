@@ -2,13 +2,18 @@ import React, { useState, useMemo } from "react";
 import { Components, Popup, PopupPortal } from "./ProviderController";
 import { PrintPortal } from "./PrintMe";
 import { PopupContainerProps } from "./types";
-import { useLocation } from "react-router-dom";
 
 export const ProviderContainer = ({ clearOnNavigation = true, ...props }: PopupContainerProps) => {
+  React.useEffect(() => {
+    if (!clearOnNavigation) return;
+    window.addEventListener("popstate", Popup.removeAll);
+    return () => {
+      window.removeEventListener("popstate", Popup.removeAll);
+    };
+  }, []);
   return (
     <>
       <Popups {...props} />
-      {clearOnNavigation && <NavigationListener />}
     </>
   );
 };
@@ -33,11 +38,3 @@ const setupOptions = (containerClass?: string, childClass?: string, offset?: { x
 };
 
 const portalBuilder = (popProps: any) => (popProps.id === "print-me" ? PrintPortal(popProps) : PopupPortal(popProps));
-
-const NavigationListener = () => {
-  const location = useLocation();
-  React.useEffect(() => {
-    Popup.removeAll();
-  }, [location.pathname]);
-  return null;
-};

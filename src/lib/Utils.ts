@@ -11,7 +11,7 @@ export const buildProps: BuildProps = (Component: PopupComponentType, options: P
 
   const _Component = convertToComponentIfNot({ Component, componentProps: options.componentProps });
   const offset = options.offset ?? Popup.offset;
-  const id = options.id ?? "global";
+  const id = options.id ?? `${Math.random()}`.replace(".", "");
   const childClass = (options.childClass ?? Popup.childClass) as string;
   const onRemoved = options.onRemoved;
   const containerClass = options.containerClass ?? Popup.containerClass;
@@ -44,7 +44,6 @@ interface GetFadeAnimation {
 
 export const getFadeAnimation: GetFadeAnimation = (placement: PopupPlacement, hasTarget: boolean) => {
   if (!hasTarget) {
-    // if (placement.startsWith("left") || placement.startsWith("right")) return "width";
     if (placement.startsWith("top")) return "slide-top";
     if (placement.startsWith("bottom")) return "slide-bottom";
     if (placement.startsWith("left")) return "slide-left";
@@ -86,7 +85,6 @@ export function setpChild(animation: string) {
 
     const padding = [paddingTop, paddingRight, paddingBottom, paddingLeft].join("px ") + "px";
     const { backgroundColor } = window.getComputedStyle(child);
-    // document.body.style.setProperty("--provider-child-background", `${backgroundColor}`);
     child.parentElement.style.setProperty("--provider-child-background", `${backgroundColor}`);
     childDim = {
       height: clientHeight + paddingTop + paddingBottom,
@@ -127,7 +125,6 @@ const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleP
   if (fixFucntion) placement = fixFucntion(targetDim);
 
   container.setAttribute("placement", placement);
-  // (container.firstChild as any)?.setAttribute("child-placement", placement);
 
   placement.split("-").forEach((pos) => {
     sty += getPosForTarget[pos]?.({ targetDim, containerDim });

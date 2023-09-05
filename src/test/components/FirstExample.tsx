@@ -3,8 +3,14 @@ import { PopupMe } from "../../lib";
 
 const PopupExample = () => {
   return (
-    <div className="col" style={{ margin: "auto" }}>
-      <p className="button" onClick={() => PopupMe(<PopupChild />)}>
+    <div className="test-container">
+      <p
+        className="test-button"
+        onClick={({ target }) =>
+          PopupMe(<PopupChild />, {
+            target,
+          })
+        }>
         Open Popup
       </p>
     </div>
