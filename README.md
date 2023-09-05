@@ -77,7 +77,7 @@ export default App;
 ```
 
 The result should look like this:
-![1.gif](/public/gifs/1.gif)
+![1.gif](https://github.com/MorabaaSoftwareSolutions/MorabaaProvider/blob/master/public/gifs/1.gif?raw=true)
 
 ## Examples
 
@@ -113,7 +113,8 @@ interface PopupChildProps {
 ```
 
 The result should look like this:
-![1.gif](/public/gifs/2.gif)
+ ![2.gif](https://github.com/MorabaaSoftwareSolutions/MorabaaProvider/blob/master/public/gifs/2.gif?raw=true)
+
 
 ### Popup with a custom component and a target
 ```jsx
@@ -154,7 +155,7 @@ interface PopupChildProps {
 ```
 
 The result should look like this:
-![1.gif](/public/gifs/3.gif)
+![3.gif](https://github.com/MorabaaSoftwareSolutions/MorabaaProvider/blob/master/public/gifs/3.gif?raw=true)
 
 ### Popup with a custom component and an animation
 ```jsx
@@ -223,7 +224,7 @@ interface PopupChildProps {
 ```
 
 The result should look like this:
-![1.gif](/public/gifs/4.gif)
+![4.gif](https://github.com/MorabaaSoftwareSolutions/MorabaaProvider/blob/master/public/gifs/4.gif?raw=true)
 
 ### Popup with a custom component and a placement
 ```jsx
@@ -272,7 +273,7 @@ interface PopupChildProps {
 ```
 
 The result should look like this:
-![1.gif](/public/gifs/5.gif)
+![5.gif](https://github.com/MorabaaSoftwareSolutions/MorabaaProvider/blob/master/public/gifs/5.gif?raw=true)
 
 ### Popup with a custom component and a placement
 ```jsx
@@ -330,7 +331,7 @@ interface PopupChildProps {
 ```
 
 The result should look like this:
-![1.gif](/public/gifs/6.gif)
+![6.gif](https://github.com/MorabaaSoftwareSolutions/MorabaaProvider/blob/master/public/gifs/6.gif?raw=true)
 
 ## Configuration
 You can configure the ProviderContainer component by passing the following props to it:
