@@ -3,7 +3,7 @@
   "version": "0.0.42",
   "description": "",
   "main": "dist/index.js",
-  "source": "src/index.tsx",
+  "source": "src/index.ts",
   "engines": {
     "node": ">=14"
   },

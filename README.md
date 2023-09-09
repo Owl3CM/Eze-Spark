@@ -432,22 +432,11 @@ and print the component and enable all children again.
 So you don't need to worry about the images and other elements in the body and you can print the component without any problem.
 
 You don't need to build a print page and you can print the component in the same page.
-<!--
-you well just need to add a print button and call the PrintMe function.
-you can also add a callback function to be called after the component is printed.
-you can also pass props to the component. -->
 
-## License
-
-This library is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Authors
 
 [Owl](https://github.com/Owl3CM) 
-
-## Related Projects
-
-- [Morabaa Utils](https://github.com/MorabaaSoftwareSolutions/Morabaa-Utils)
 
 ## Support
 

@@ -7,25 +7,25 @@ import { terser } from "rollup-plugin-terser";
 import packageJson from "./package.json";
 
 const config = {
-  input: "src/index.tsx",
+  input: "src/index.ts",
   plugins: [
     peerDepsExternal(),
     resolve(),
     commonjs(),
     typescript({
-      exclude: ["**/*.stories.tsx", "**/*.stories.mdx"]
+      exclude: ["**/*.stories.tsx", "**/*.stories.mdx"],
     }),
     postcss({
       plugins: [],
-      minimize: true
+      minimize: true,
     }),
-    terser()
+    terser(),
   ],
   output: {
     file: packageJson.main,
     format: "cjs",
-    sourcemap: true
-  }
+    sourcemap: false,
+  },
 };
 
 export default config;
