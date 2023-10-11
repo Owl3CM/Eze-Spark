@@ -108,7 +108,8 @@ export const isMobile = () => {
 const getUniqueKey = (target: any, Component: React.ReactNode) => JSON.stringify(target?.getBoundingClientRect() || Component);
 
 const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleProps) => {
-  let sty = "pointer-events:none;z-index:1001;" + (container.style.cssText || "");
+  // let sty = "pointer-events:none;z-index:1001;" + (container.style.cssText || "");
+  let sty = "z-index:1001;" + (container.style.cssText || "");
   if (!hasTarget) {
     return getStyleWithoutTarget({ sty, container, placement, offset });
   }
@@ -210,7 +211,8 @@ function getChildPadding(child: any) {
 }
 
 export function handleOutClick(props: PopupProps) {
-  if (props.removeOnOutClick && !props.overlay) {
+  // if (props.removeOnOutClick && !props.overlay) {
+  if (props.removeOnOutClick) {
     setTimeout(() => {
       const popup = document.getElementById(props.id);
       if (popup) {

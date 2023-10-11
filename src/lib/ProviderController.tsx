@@ -55,8 +55,8 @@ const createPopupPortal = ({
   animation,
   overlayClass,
   hasTarget,
-  removeOnOutClick,
-}: PopupPortalProps) => {
+}: // removeOnOutClick,
+PopupPortalProps) => {
   if (!hasTarget) target = document.body;
   CurrentPopups[id] = createPortal(
     <>
@@ -70,7 +70,13 @@ const createPopupPortal = ({
           {Component}
         </div>
       </div>
-      {overlay && <div className={overlayClass} id="provider-popup-overlay" onClick={() => removeOnOutClick && Popup.remove(id)} />}
+      {overlay && (
+        <div
+          className={overlayClass}
+          id="provider-popup-overlay"
+          // onClick={() => removeOnOutClick && Popup.remove(id)}
+        />
+      )}
     </>,
     target
   );

@@ -8,7 +8,7 @@ const PopupAnimationsContainer = (target) => {
   const id = "popup-animations-container";
   // the component to be rendered inside the popup
   const Component = (
-    <div className="grid-small">
+    <div className="row">
       {animations.map((anim) => (
         <div
           className={`button ${animation === anim ? "selected" : ""}`}
@@ -72,8 +72,8 @@ const PopupExample = () => {
   const [title, setTitle] = React.useState("Hello World ");
 
   return (
-    <div className="col bg">
-      <div className="wrapper center">
+    <div className="row bg">
+      <div className="row center">
         <div
           onClick={(e: any) => {
             PopupAnimationsContainer(e.target);
@@ -92,8 +92,7 @@ const PopupExample = () => {
         <div
           className="button"
           onClick={(e: any) => {
-            PopupMe({
-              Component: <PopupChild placement={placement} animation={animation} title={title} />,
+            PopupMe(<PopupChild placement={placement} animation={animation} title={title} />, {
               animation,
               placement,
               target: e.target,
@@ -104,8 +103,7 @@ const PopupExample = () => {
         <div
           className="button"
           onClick={() => {
-            PopupMe({
-              Component: <PopupChild placement={placement} animation={animation} title={title} />,
+            PopupMe(<PopupChild placement={placement} animation={animation} title={title} />, {
               animation,
               placement,
             });
@@ -122,6 +120,578 @@ export default PopupExample;
 const PopupChild = ({ title, animation, placement }: any) => {
   return (
     <div className="col min-w-max">
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
+      <p>
+        <span className="text-light">animation:</span>
+        <span className="text-red px-l">{animation}</span>
+      </p>
+      <p>
+        <span className="text-light">placement:</span>
+        <span className="text-red px-l">{placement}</span>
+      </p>
+      <br />
+      <p>
+        <span className="text-light">title: </span>
+        <span className="text-red px-l">{title}</span>
+      </p>
       <p>
         <span className="text-light">animation:</span>
         <span className="text-red px-l">{animation}</span>
