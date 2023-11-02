@@ -220,15 +220,18 @@ export function handleOutClick(props: PopupProps) {
           ? async ({ target }: any) => {
               if (popup.contains(target) || props.target?.contains(target)) return;
               await sleep(10);
-              document.removeEventListener("pointerup", remove);
               Popup.remove(props.id);
             }
           : async ({ target }: any) => {
               if (popup.firstChild?.contains(target)) return;
               await sleep(10);
-              document.removeEventListener("pointerup", remove);
               Popup.remove(props.id);
             };
+        const clear = CurrentPopups[props.id]?.clear;
+        CurrentPopups[props.id].clear = () => {
+          document.removeEventListener("pointerup", remove);
+          clear?.();
+        };
         document.addEventListener("pointerup", remove);
       }
     }, 5);
