@@ -1,3 +1,5 @@
+import { CSSProperties } from "react";
+
 // export type Animation = "width" | "height" | "width-height" | "scale-x" | "scale-y" | "scale-both" | "auto" | "none";
 export type Animation =
   | "width"
@@ -57,6 +59,7 @@ export interface PopupOptions {
   containerClass?: string;
   animation?: Animation;
   overlayClass?: string;
+  style?: CSSProperties;
 }
 export interface PopupComponentArgs extends PopupOptions {
   Component: React.ReactNode | React.FC<any>;
@@ -74,6 +77,7 @@ export interface PopupProps {
   containerClass?: string;
   animation?: Animation;
   hasTarget: boolean;
+  style?: CSSProperties;
 }
 export type BuildProps = (Component: PopupComponentType, options: PopupOptions) => PopupProps;
 
@@ -122,6 +126,7 @@ export interface PopupPortalProps {
   overlayClass?: string;
   hasTarget: boolean;
   removeOnOutClick?: boolean;
+  style?: CSSProperties;
 }
 
 export interface PrintProps {
@@ -129,3 +134,43 @@ export interface PrintProps {
   componentProps?: any;
   afterPrint?: () => void;
 }
+
+type ScaleUpPlacement = "auto" | "horizontal" | "vertical" | "fill" | "fit";
+export type ScaleUpAnimation = "auto" | "horizontal" | "vertical" | "fill" | "fit";
+export interface ScaleUpOptions {
+  id?: string;
+  placement?: ScaleUpPlacement;
+  target: HTMLElement;
+  overlay?: boolean;
+  componentProps?: any;
+  removeOnOutClick?: boolean;
+  offset?: { x: number; y: number };
+  viewPort?: any;
+  childClass?: string;
+  onRemoved?: () => void;
+  containerClass?: string;
+  // animation?: ScaleUpAnimation;
+  overlayClass?: string;
+  style?: CSSProperties;
+}
+export interface ScaleUpComponentArgs extends ScaleUpOptions {
+  Component: React.ReactNode | React.FC<any>;
+}
+
+export type ScaleUpProps = {
+  id: string;
+  Component: React.ReactNode;
+  placement: ScaleUpPlacement;
+  target: HTMLElement;
+  overlay?: boolean;
+  removeOnOutClick?: boolean;
+  viewPort: any;
+  key: string;
+  childClass: string;
+  containerClass?: string;
+  animation?: ScaleUpAnimation;
+  hasTarget: boolean;
+  style?: CSSProperties;
+};
+
+export type ScaleUpBuildProps = (Component: PopupComponentType, options: ScaleUpOptions) => ScaleUpProps;

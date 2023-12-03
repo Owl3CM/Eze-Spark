@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
-import { PopupOptions, PopupPortalProps, PopupController, PopupProps, PopupComponentType } from "./types";
-import { buildProps, handleOutClick, setpChild, sleep, steup } from "./Utils";
+import { PopupOptions, PopupPortalProps, PopupController, PopupProps, PopupComponentType, PopupPlacement, BuildProps, Animation } from "./types";
+import { getUniqueKey, handleOutClick, setpChild, sleep, steup } from "./Utils";
 
 export const CurrentPopups: { [id: string]: any } = {};
 export const Components: { [id: string]: PopupProps } = {};
@@ -39,7 +39,7 @@ export const Popup: PopupController = {
 };
 
 export const PopupPortal = (popProps: PopupPortalProps) => CurrentPopups[popProps.id] || createPopupPortal(popProps);
-const PopupExits = (id: string, key: string) => CurrentPopups[id]?.key === key;
+export const PopupExits = (id: string, key: string) => CurrentPopups[id]?.key === key;
 
 const createPopupPortal = ({
   Component,
@@ -55,6 +55,7 @@ const createPopupPortal = ({
   animation,
   overlayClass,
   hasTarget,
+  style,
 }: // removeOnOutClick,
 PopupPortalProps) => {
   if (!hasTarget) target = document.body;
@@ -66,7 +67,7 @@ PopupPortalProps) => {
         className={containerClass}
         popup-has-target={`${hasTarget}`}
         ref={(container) => container && steup({ container, id, placement, target, offset, onRemoved, animation, hasTarget })}>
-        <div style={{ pointerEvents: "all" }} ref={setpChild(animation)} id="provider-popup-child" className={childClass}>
+        <div style={{ pointerEvents: "all", ...style }} ref={setpChild(animation)} id="provider-popup-child" className={childClass}>
           {Component}
         </div>
       </div>
@@ -87,3 +88,57 @@ PopupPortalProps) => {
 
 export const convertToComponentIfNot = ({ Component, componentProps }: { Component: PopupComponentType; componentProps: any }) =>
   typeof Component === "function" ? <Component {...componentProps} /> : Component;
+
+const buildProps: BuildProps = (Component: PopupComponentType, options: PopupOptions) => {
+  if (!options.placement) options.placement = "auto";
+  if (!options.animation) options.animation = "auto";
+  const target = options.target;
+  const hasTarget = !!target;
+  const placement = options.placement === "auto" && !hasTarget ? "center" : options.placement;
+  const overlay = options.overlay ?? placement === "center";
+
+  const _Component = convertToComponentIfNot({ Component, componentProps: options.componentProps });
+  const offset = options.offset ?? Popup.offset;
+  const id = options.id ?? `${Math.random()}`.replace(".", "");
+  const childClass = (options.childClass ?? Popup.childClass) as string;
+  const onRemoved = options.onRemoved;
+  const containerClass = options.containerClass ?? Popup.containerClass;
+  let animation = options.animation ?? Popup.animation;
+
+  if (animation === "auto") animation = getFadeAnimation(placement, hasTarget);
+
+  if (target) target.setAttribute("has-popup", "true");
+  return {
+    Component: _Component,
+    id,
+    placement,
+    overlay,
+    target,
+    key: getUniqueKey(target, _Component) + id,
+    viewPort: options.viewPort ?? window,
+    removeOnOutClick: options.removeOnOutClick !== false,
+    offset,
+    childClass,
+    onRemoved,
+    containerClass,
+    animation,
+    overlayClass: options.overlayClass ?? Popup.overlayClass,
+    hasTarget,
+    style: options.style,
+  };
+};
+
+interface GetFadeAnimation {
+  (placement: PopupPlacement, hasTarget: boolean): Animation;
+}
+
+const getFadeAnimation: GetFadeAnimation = (placement: PopupPlacement, hasTarget: boolean) => {
+  if (!hasTarget) {
+    if (placement.startsWith("top")) return "slide-top";
+    if (placement.startsWith("bottom")) return "slide-bottom";
+    if (placement.startsWith("left")) return "slide-left";
+    if (placement.startsWith("right")) return "slide-right";
+    if (placement === "center") return "scale-both";
+  }
+  return "width-height";
+};

@@ -1,57 +1,6 @@
 import { Components, convertToComponentIfNot, CurrentPopups, Popup } from "./ProviderController";
 import { Animation, BuildProps, GetStyleProps, PopupComponentArgs, PopupComponentType, PopupOptions, PopupPlacement, PopupProps, SteupProps } from "./types";
 
-export const buildProps: BuildProps = (Component: PopupComponentType, options: PopupOptions) => {
-  if (!options.placement) options.placement = "auto";
-  if (!options.animation) options.animation = "auto";
-  const target = options.target;
-  const hasTarget = !!target;
-  const placement = options.placement === "auto" && !hasTarget ? "center" : options.placement;
-  const overlay = options.overlay ?? placement === "center";
-
-  const _Component = convertToComponentIfNot({ Component, componentProps: options.componentProps });
-  const offset = options.offset ?? Popup.offset;
-  const id = options.id ?? `${Math.random()}`.replace(".", "");
-  const childClass = (options.childClass ?? Popup.childClass) as string;
-  const onRemoved = options.onRemoved;
-  const containerClass = options.containerClass ?? Popup.containerClass;
-  let animation = options.animation ?? Popup.animation;
-
-  if (animation === "auto") animation = getFadeAnimation(placement, hasTarget);
-
-  if (target) target.setAttribute("has-popup", "true");
-  return {
-    Component: _Component,
-    id,
-    placement,
-    overlay,
-    target,
-    key: getUniqueKey(target, _Component) + id,
-    viewPort: options.viewPort ?? window,
-    removeOnOutClick: options.removeOnOutClick !== false,
-    offset,
-    childClass,
-    onRemoved,
-    containerClass,
-    animation,
-    overlayClass: options.overlayClass ?? Popup.overlayClass,
-    hasTarget,
-  };
-};
-interface GetFadeAnimation {
-  (placement: PopupPlacement, hasTarget: boolean): Animation;
-}
-
-export const getFadeAnimation: GetFadeAnimation = (placement: PopupPlacement, hasTarget: boolean) => {
-  if (!hasTarget) {
-    if (placement.startsWith("top")) return "slide-top";
-    if (placement.startsWith("bottom")) return "slide-bottom";
-    if (placement.startsWith("left")) return "slide-left";
-    if (placement.startsWith("right")) return "slide-right";
-    if (placement === "center") return "scale-both";
-  }
-  return "width-height";
-};
 let childDim = {
   height: 0,
   width: 0,
@@ -80,7 +29,7 @@ export const steup = ({ container, id, placement, target, offset, onRemoved, ani
 export function setpChild(animation: string) {
   return (child: any) => {
     if (!child) return;
-    let { clientHeight, clientWidth } = child;
+    let { clientHeight, clientWidth, clientLeft, clientTop } = child;
     const { paddingTop, paddingBottom, paddingLeft, paddingRight } = getChildPadding(child);
 
     const padding = [paddingTop, paddingRight, paddingBottom, paddingLeft].join("px ") + "px";
@@ -94,6 +43,11 @@ export function setpChild(animation: string) {
     child.style.setProperty("--provider-child-height", `${clientHeight}px`);
     child.style.setProperty("--provider-child-width", `${clientWidth}px`);
     child.style.setProperty("--provider-child-padding", `${padding}`);
+    // new
+    child.style.setProperty("--provider-child-left", `${clientLeft}px`);
+    child.style.setProperty("--provider-child-top", `${clientTop}px`);
+    //
+
     child.setAttribute("fade-type", `${animation}-in`);
     child.style.position = "";
   };
@@ -105,7 +59,7 @@ export const isMobile = () => {
   return navigator.userAgent.toLowerCase().match(/mobile/i) != null;
 };
 
-const getUniqueKey = (target: any, Component: React.ReactNode) => JSON.stringify(target?.getBoundingClientRect() || Component);
+export const getUniqueKey = (target: any, Component: React.ReactNode) => JSON.stringify(target?.getBoundingClientRect() || Component);
 
 const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleProps) => {
   // let sty = "pointer-events:none;z-index:1001;" + (container.style.cssText || "");
@@ -137,25 +91,17 @@ const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleP
 const getStyleWithoutTarget = ({ sty, container, placement, offset }: any) => {
   container.setAttribute("placement", placement);
   (container.firstChild as any)?.setAttribute("child-placement", placement);
-  sty += getPos[placement.split("-")[0]]?.();
+  sty += getPos[placement.split("-")[0]];
   sty += `transform:translate(${offset.x}px,${offset.y}px);`;
   return sty;
 };
 
 const getPos: any = {
-  center: () => `inset:0;padding:100px 10px;`,
-  top: () => {
-    return `top:0;left:0;right:0;padding-bottom:100px;`;
-  },
-  bottom: () => {
-    return `bottom:0;left:0;right:0;padding-top:100px;`;
-  },
-  left: () => {
-    return `left:0;bottom:0;top:0;padding-right:100px;`;
-  },
-  right: () => {
-    return `right:0;bottom:0;top:0;padding-left:100px;`;
-  },
+  center: "inset:0;padding:100px 10px;",
+  top: "top:0;left:0;right:0;padding-bottom:100px;",
+  bottom: "bottom:0;left:0;right:0;padding-top:100px;",
+  left: "left:0;bottom:0;top:0;padding-right:100px;",
+  right: "right:0;bottom:0;top:0;padding-left:100px;",
 };
 
 const fixPostion: any = {
