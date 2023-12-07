@@ -130,7 +130,6 @@ export interface PopupPortalProps {
 }
 
 export interface PrintProps {
-  Component: React.ReactNode | React.FC<any>;
   componentProps?: any;
   afterPrint?: () => void;
 }

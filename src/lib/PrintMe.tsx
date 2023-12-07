@@ -1,12 +1,12 @@
 import { createPortal } from "react-dom";
 import { Components, Popup } from "./ProviderController";
-import { PrintProps } from "./types";
+import { PopupComponentType, PrintProps } from "./types";
 import { isMobile } from "./Utils";
 
-export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintProps) => {
+export const PrintMe = (Component: PopupComponentType, options: PrintProps = {}) => {
   // const old = document.querySelector(".print-me");
   const id = "print-me";
-  Component = typeof Component === "function" ? <Component {...componentProps} /> : Component;
+  Component = typeof Component === "function" ? <Component {...options.componentProps} /> : Component;
   Components[id] = {
     Component,
     id,
@@ -21,7 +21,7 @@ export const PrintMe = ({ Component, componentProps = {}, afterPrint }: PrintPro
 
   function cleanAfterPrint() {
     delete Components[id];
-    afterPrint?.();
+    options.afterPrint?.();
     Popup.render(Math.random());
   }
   if (typeof window !== undefined)
