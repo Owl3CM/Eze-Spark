@@ -15,6 +15,8 @@ export type Animation =
   | "slide-right"
   | "fade"
   | "none";
+
+export type InAndOutAnimation = { in: Animation; out: Animation };
 export interface PopupController {
   create: (Component: PopupComponentType, options: PopupOptions) => void;
   remove: (id: string) => void;
@@ -27,7 +29,7 @@ export interface PopupController {
   containerClass?: string;
   childClass?: string;
   offset: { x: number; y: number };
-  animation: Animation;
+  animation: Animation | InAndOutAnimation;
   overlayClass?: string;
 }
 export type PopupPlacement =
@@ -57,7 +59,7 @@ export interface PopupOptions {
   childClass?: string;
   onRemoved?: () => void;
   containerClass?: string;
-  animation?: Animation;
+  animation?: Animation | InAndOutAnimation;
   overlayClass?: string;
   style?: CSSProperties;
 }
@@ -75,7 +77,7 @@ export interface PopupProps {
   key: string;
   childClass: string;
   containerClass?: string;
-  animation?: Animation;
+  animation?: InAndOutAnimation;
   hasTarget: boolean;
   style?: CSSProperties;
 }
@@ -98,7 +100,7 @@ export interface SteupProps {
   target: HTMLElement;
   offset: { x: number; y: number };
   onRemoved?: () => void;
-  animation?: Animation;
+  animation: InAndOutAnimation;
   hasTarget: boolean;
 }
 
@@ -122,7 +124,7 @@ export interface PopupPortalProps {
   childClass?: string;
   onRemoved?: () => void;
   containerClass: string;
-  animation: Animation;
+  animation: InAndOutAnimation;
   overlayClass?: string;
   hasTarget: boolean;
   removeOnOutClick?: boolean;

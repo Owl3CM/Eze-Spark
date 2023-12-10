@@ -1,5 +1,5 @@
-import { Components, convertToComponentIfNot, CurrentPopups, Popup } from "./ProviderController";
-import { Animation, BuildProps, GetStyleProps, PopupComponentArgs, PopupComponentType, PopupOptions, PopupPlacement, PopupProps, SteupProps } from "./types";
+import { Components, CurrentPopups, Popup } from "./ProviderController";
+import { GetStyleProps, InAndOutAnimation, PopupProps, SteupProps } from "./types";
 
 let childDim = {
   height: 0,
@@ -14,9 +14,9 @@ export const steup = ({ container, id, placement, target, offset, onRemoved, ani
     delete Components[container.id!];
 
     container.classList.add("opacity-out");
-    parent?.querySelector("#provider-popup-overlay")?.classList.add("opacity-out");
+    parent?.querySelector("#provider-popup-overlay_" + id)?.classList.add("opacity-out");
 
-    (container.firstChild as any)?.setAttribute("fade-type", `${animation}-out`);
+    (container.firstChild as any)?.setAttribute("fade-type", `${animation.out}-out`);
     const time = getComputedStyle(document.documentElement).getPropertyValue("--popup-animation-time");
     await sleep(parseInt(time) ?? 300);
     onRemoved?.();
@@ -26,7 +26,7 @@ export const steup = ({ container, id, placement, target, offset, onRemoved, ani
   };
 };
 
-export function setpChild(animation: string) {
+export function setpChild(animation: InAndOutAnimation) {
   return (child: any) => {
     if (!child) return;
     let { clientHeight, clientWidth, clientLeft, clientTop } = child;
@@ -48,7 +48,7 @@ export function setpChild(animation: string) {
     child.style.setProperty("--provider-child-top", `${clientTop}px`);
     //
 
-    child.setAttribute("fade-type", `${animation}-in`);
+    child.setAttribute("fade-type", `${animation.in}-in`);
     child.style.position = "";
   };
 }

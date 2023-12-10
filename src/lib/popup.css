@@ -99,7 +99,7 @@
   }
   
   /* overlay */
-  #provider-popup-overlay {
+  .provider-popup-overlay {
     inset: 0;
     position: fixed;
     background-color: var(--overlay);
