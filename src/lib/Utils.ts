@@ -84,6 +84,12 @@ const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleP
   placement.split("-").forEach((pos) => {
     sty += getPosForTarget[pos]?.({ targetDim, containerDim });
   });
+  if (placement.includes("top")) {
+    offset.y *= -1;
+  }
+  if (placement.includes("left")) {
+    offset.x *= -1;
+  }
   sty += `transform:translate(${offset.x}px,${offset.y}px);`;
   return sty;
 };
@@ -105,6 +111,7 @@ const getPos: any = {
 };
 
 const fixPostion: any = {
+  list: (targetDim: any) => `list-${getYPOS(targetDim)}`,
   top: (targetDim: any) => `top-${getXPOS(targetDim)}`,
   bottom: (targetDim: any) => `bottom-${getXPOS(targetDim)}`,
   left: (targetDim: any) => `${getYPOS(targetDim)}-left`,
@@ -140,6 +147,11 @@ const getPosForTarget: any = {
     else emptySpace = 0;
     document.body.style.setProperty("--popup-mark-postion-x", `${emptySpace + targetDim.width / 2}px`);
     return `left:${-emptySpace}px;`;
+  },
+  list(targetDim: any) {
+    const x = targetDim.x + targetDim.offsetWidth - window.innerWidth;
+    const emptySpaceX = x > 0 ? x : 0;
+    return `left:${-emptySpaceX}px;`;
   },
 };
 

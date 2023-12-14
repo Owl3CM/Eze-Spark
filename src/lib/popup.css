@@ -76,8 +76,14 @@
     bottom: -5px;
     left:  var(--popup-mark-postion-x);
   }
+  
+  [placement="list-top"],[placement="list-bottom"]{
+    max-width: 100% !important;
+  }
+
   [placement="inside"]::before,
-  [placement="list"]::before,
+  [placement="list-top"]::before,
+  [placement="list-bottom"]::before,
   [placement="center"]::before,
   [placement="none"]::before {
     all: unset !important;
