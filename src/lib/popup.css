@@ -77,9 +77,17 @@
     left:  var(--popup-mark-postion-x);
   }
   
-  [placement="list-top"],[placement="list-bottom"]{
-    max-width: 100% !important;
+  /* [placement="list-top"]{
+    bottom: 100%!important;
+    top: auto!important;
   }
+  [placement="list-bottom"]{
+    bottom: auto!important;
+    top: 100%!important;
+  } */
+  /* [placement="list-top"] ,[placement="list-bottom"]   {
+    max-width: 100% !important;
+  } */
 
   [placement="inside"]::before,
   [placement="list-top"]::before,

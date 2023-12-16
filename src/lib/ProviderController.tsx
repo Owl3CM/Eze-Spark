@@ -32,6 +32,25 @@ export const Popup: PopupController = {
   getPopup: (id: string) => Components[id],
   getPopups: () => Components,
   getPopupIds: () => Object.keys(Components),
+  // updatePopupProps: async ({ id, Component, getProps }) => {
+  //   let component = Components[id] as any;
+  //   if (!component) return;
+  //   const _props = getProps(component.Component["props"]);
+  //   component.Component = <Component {..._props} />;
+  //   // CurrentPopups[id].key = Math.random();
+  //   delete CurrentPopups[id];
+
+  //   Popup.render((Popup.r += 1));
+  // },
+  // updatePopup: async (id: string, props: (prev: any) => any) => {
+  //   let component = Components[id] as any;
+  //   if (!component) return;
+  //   component = props(component);
+  //   // CurrentPopups[id].key = Math.random();
+  //   delete CurrentPopups[id];
+
+  //   Popup.render((Popup.r += 1));
+  // },
   render: (r: number) => {
     Popup.r = r;
   },

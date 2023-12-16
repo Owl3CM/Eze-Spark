@@ -82,15 +82,11 @@ const getStyle = ({ container, placement, target, offset, hasTarget }: GetStyleP
   container.setAttribute("placement", placement);
 
   placement.split("-").forEach((pos) => {
-    sty += getPosForTarget[pos]?.({ targetDim, containerDim });
+    sty += getPosForTarget[pos]?.();
   });
-  if (placement.includes("top")) {
-    offset.y *= -1;
-  }
-  if (placement.includes("left")) {
-    offset.x *= -1;
-  }
-  sty += `transform:translate(${offset.x}px,${offset.y}px);`;
+  let y = offset.y * (placement.includes("top") ? -1 : 1);
+  let x = offset.x * (placement.includes("left") ? -1 : 1);
+  sty += `transform:translate(${x}px,${y}px);`;
   return sty;
 };
 
@@ -122,37 +118,11 @@ const fixPostion: any = {
 
 const getPosForTarget: any = {
   center: () => `inset:0`,
-  top: ({ targetDim, containerDim }: any) => {
-    let emptySpace = targetDim.y + targetDim.offsetHeight - containerDim.offsetHeight;
-    if (emptySpace > 0) emptySpace = targetDim.offsetHeight;
-    return `bottom:${emptySpace}px;`;
-  },
-  bottom: ({ targetDim, containerDim }: any) => {
-    let emptySpace = targetDim.y + targetDim.offsetHeight;
-    const y = targetDim.y + containerDim.offsetHeight - window.innerHeight;
-    if (y > 0) emptySpace = y > emptySpace ? emptySpace : y;
-    else emptySpace = -targetDim.offsetHeight;
-    return `top:${-emptySpace}px;`;
-  },
-  left: ({ targetDim, containerDim }: any) => {
-    let emptySpace = targetDim.x + targetDim.offsetWidth - containerDim.offsetWidth;
-    if (emptySpace > 0) emptySpace = 0;
-    document.body.style.setProperty("--popup-mark-postion-x", `${targetDim.width / 2 - emptySpace}px`);
-    return `right:${emptySpace}px;`;
-  },
-  right: ({ targetDim, containerDim }: any) => {
-    let emptySpace = targetDim.x;
-    const x = targetDim.x + containerDim.offsetWidth - window.innerWidth;
-    if (x > 0) emptySpace = x > emptySpace ? emptySpace : x;
-    else emptySpace = 0;
-    document.body.style.setProperty("--popup-mark-postion-x", `${emptySpace + targetDim.width / 2}px`);
-    return `left:${-emptySpace}px;`;
-  },
-  list(targetDim: any) {
-    const x = targetDim.x + targetDim.offsetWidth - window.innerWidth;
-    const emptySpaceX = x > 0 ? x : 0;
-    return `left:${-emptySpaceX}px;`;
-  },
+  top: () => `bottom:100%;`,
+  bottom: () => `top:100%;`,
+  left: () => `right:100%;`,
+  right: () => `left:100%;`,
+  list: () => `inset-inline-end:0;`,
 };
 
 const getXPOS = (targetDim: any) => (targetDim.x < window.innerWidth / 2 ? "right" : "left");

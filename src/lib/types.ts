@@ -26,6 +26,9 @@ export interface PopupController {
   getPopupIds: () => string[];
   r: number;
   render: (r: number) => void;
+  // new
+  // updatePopup: (id: string, options: PopupOptions) => void;
+  // updatePopupProps: ({ id, Component, getProps }: { id: string; Component?: React.ReactNode | React.FC<any>; getProps: (prev: any) => any }) => void;
   containerClass?: string;
   childClass?: string;
   offset: { x: number; y: number };
@@ -36,6 +39,7 @@ export type PopupPlacement =
   | "auto"
   | "inside"
   | "center"
+  | "list"
   | "top"
   | "bottom"
   | "left"
