@@ -120,8 +120,8 @@ const getPosForTarget: any = {
   center: () => `inset:0`,
   top: () => `bottom:100%;`,
   bottom: () => `top:100%;`,
-  left: () => `right:100%;`,
-  right: () => `left:100%;`,
+  left: () => `inset-inline-start:0;`,
+  right: () => `inset-inline-end:0;`,
   list: () => `inset-inline-end:0;`,
 };
 
