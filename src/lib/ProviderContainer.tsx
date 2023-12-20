@@ -4,13 +4,15 @@ import { PrintPortal } from "./PrintMe";
 import { PopupContainerProps } from "./types";
 
 export const ProviderContainer = ({ clearOnNavigation = true, ...props }: PopupContainerProps) => {
-  React.useEffect(() => {
-    if (!clearOnNavigation) return;
-    window.addEventListener("popstate", Popup.removeAll);
-    return () => {
-      window.removeEventListener("popstate", Popup.removeAll);
-    };
-  }, []);
+  console.log("ProviderContainer");
+
+  // React.useEffect(() => {
+  //   if (!clearOnNavigation) return;
+  //   window.addEventListener("popstate", Popup.removeAll);
+  //   return () => {
+  //     window.removeEventListener("popstate", Popup.removeAll);
+  //   };
+  // }, []);
   return (
     <>
       <Popups {...props} />
