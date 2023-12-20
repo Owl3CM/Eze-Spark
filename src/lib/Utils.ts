@@ -47,7 +47,6 @@ export function setpChild(animation: InAndOutAnimation) {
     child.style.setProperty("--provider-child-left", `${clientLeft}px`);
     child.style.setProperty("--provider-child-top", `${clientTop}px`);
     //
-
     child.setAttribute("fade-type", `${animation.in}-in`);
     child.style.position = "";
   };
