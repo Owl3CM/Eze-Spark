@@ -9,6 +9,12 @@ const PopupAnimationsContainer = (target) => {
   // the component to be rendered inside the popup
   const Component = (
     <div className="row">
+      <p
+        onClick={() => {
+          Popup.remove(id);
+        }}>
+        close
+      </p>
       {animations.map((anim) => (
         <div
           className={`button ${animation === anim ? "selected" : ""}`}
@@ -27,9 +33,8 @@ const PopupAnimationsContainer = (target) => {
     </div>
   );
 
-  PopupMe({
+  PopupMe(Component, {
     id,
-    Component,
     animation,
     // placement,
     // target,
@@ -59,9 +64,8 @@ const PopupPlacementContainer = (target) => {
     </div>
   );
 
-  PopupMe({
+  PopupMe(Component, {
     id,
-    Component,
     // animation,
     // placement,
     // target,
