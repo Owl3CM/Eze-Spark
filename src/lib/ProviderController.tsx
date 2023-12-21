@@ -60,9 +60,6 @@ export const Popup: PopupController = {
   removeAll: () => {
     Object.keys(CurrentPopups).forEach((key) => CurrentPopups[key]?.clear());
   },
-  // targetHasPopup(target: HTMLElement) {
-  //   return target.getAttribute("has-popup");
-  // },
   r: 0,
   containerClass: "",
   offset: { x: 0, y: 0 },
