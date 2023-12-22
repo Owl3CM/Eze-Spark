@@ -126,16 +126,22 @@ const buildProps: BuildProps = (Component: PopupComponentType, options: PopupOpt
   const placement = options.placement === "auto" && !hasTarget ? "center" : options.placement;
   const overlay = options.overlay ?? placement === "center";
 
-  const _Component = convertToComponentIfNot({ Component, componentProps: options.componentProps });
   const offset = options.offset ?? Popup.offset;
   const id = options.id ?? `${Math.random()}`.replace(".", "");
   const childClass = (options.childClass ?? Popup.childClass) as string;
   const onRemoved = options.onRemoved;
   const containerClass = options.containerClass ?? Popup.containerClass;
+  const componentProps = options.componentProps ?? {};
+  componentProps.popup = {
+    remove: () => Popup.remove(id),
+  };
 
   const animation = getFadeAnimation(placement, hasTarget, options.animation);
 
   if (target) target.setAttribute("has-popup", "true");
+
+  const _Component = convertToComponentIfNot({ Component, componentProps });
+
   return {
     Component: _Component,
     id,
