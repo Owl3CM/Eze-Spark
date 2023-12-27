@@ -134,6 +134,12 @@ const buildProps: BuildProps = (Component: PopupComponentType, options: PopupOpt
   const componentProps = options.componentProps ?? {};
   componentProps.popup = {
     remove: () => Popup.remove(id),
+    render: () => {
+      delete CurrentPopups[id];
+      setTimeout(() => {
+        Popup.render((Popup.r += 1));
+      }, 1000);
+    },
   };
 
   const animation = getFadeAnimation(placement, hasTarget, options.animation);

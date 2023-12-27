@@ -33,7 +33,7 @@ const Popups = ({
   [Popup.r, Popup.render] = useState<number>(Popup.r);
 
   useMemo(() => setupOptions(containerClass, childClass, offset, overlayClass, animationTime), []);
-  return useMemo(() => <>{Object.values(Components)?.map(portalBuilder) ?? null}</>, [Popup.r]);
+  return <>{Object.values(Components)?.map(portalBuilder) ?? null}</>;
 };
 
 const setupOptions = (containerClass?: string, childClass?: string, offset?: { x: number; y: number }, overlayClass?: string, animationTime?: number) => {
