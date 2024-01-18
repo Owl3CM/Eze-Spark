@@ -172,7 +172,7 @@ export type ScaleUpProps = {
   key: string;
   childClass: string;
   containerClass?: string;
-  animation?: ScaleUpAnimation;
+  animation?: { in: ScaleUpAnimation; out: ScaleUpAnimation };
   hasTarget: boolean;
   style?: CSSProperties;
 };

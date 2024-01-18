@@ -13,7 +13,7 @@ export const ScaleMe = async (Component: PopupComponentType, options: ScaleUpOpt
   options.style = { ...options.style, ...getTargetPostionStyle(options.target as any, offset) };
   const props = buildProps(Component, options);
 
-  if (PopupExits(props.id, props.key) || alreadyHasPopup) return Popup.remove(props.id);
+  if (PopupExits(props.id, props.key) && alreadyHasPopup) return Popup.remove(props.id);
   await Popup.remove(props.id);
 
   //Todo : Check here if need to add new Components
@@ -64,7 +64,7 @@ export const buildProps: ScaleUpBuildProps = (Component: PopupComponentType, opt
   const target = options.target;
   const placement = options.placement === "auto" ? "fill" : options.placement;
   const overlay = options.overlay ?? placement === "fill";
-  const animation = options.placement;
+  const animation = { in: options.placement, out: options.placement } as any;
 
   const _Component = convertToComponentIfNot({ Component, componentProps: options.componentProps });
   const offset = options.offset ?? { y: 0, x: 0 }; //Popup.offset;
