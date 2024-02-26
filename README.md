@@ -1,20 +1,20 @@
 
-# Morabaa Provider
-Morabaa Provider is a versatile library for creating and managing customizable popups in your React applications. It offers a simple API and various configuration options to make your popups look and behave just the way you want.
+# Eze-Spark
+Eze-Spark is a versatile library for creating and managing customizable popups in your React applications. It offers a simple API and various configuration options to make your popups look and behave just the way you want.
 
 ## Installation
-You can easily install Morabaa Provider via npm or yarn:
+You can easily install Eze-Spark via npm or yarn:
 ```bash
-npm install morabaa-provider
+npm install eze-spark
 # or
-yarn add morabaa-provider
+yarn add eze-spark
 
 ```
 ## Quick Start
 Set up the ProviderContainer component in your main application file (e.g., App.js or App.tsx):
 ```jsx
 import "./App.css"
-import { ProviderContainer } from 'morabaa-provider';
+import { ProviderContainer } from 'eze-spark';
 
 const App = () => {
   return (
@@ -33,7 +33,7 @@ The PopupMe function takes two arguments: the first argument is the  component t
 
 Create PopupExample.js or PopupExample.tsx and add this code to it:
 ```jsx
-import { PopupMe } from 'morabaa-provider';
+import { PopupMe } from 'eze-spark';
 
 const PopupExample = () => {
   return (
@@ -60,7 +60,7 @@ Include the PopupExample component in your main application file to see the resu
 ```jsx
 import "./App.css"
 import React from "react";
-import { ProviderContainer } from 'morabaa-provider';
+import { ProviderContainer } from 'eze-spark';
 import PopupExample from "./PopupExample";
 
 const App = () => {
@@ -83,7 +83,7 @@ The result should look like this:
 
 ### Popup with a custom component and props
 ```jsx
-import { PopupMe } from 'morabaa-provider';
+import { PopupMe } from 'eze-spark';
 
 const PopupExample = () => {
   const [title, setTitle] = React.useState("Am I a popup?");
@@ -118,7 +118,7 @@ The result should look like this:
 
 ### Popup with a custom component and a target
 ```jsx
-import { PopupMe } from 'morabaa-provider';
+import { PopupMe } from 'eze-spark';
 
 const PopupExample = () => {
   return (
@@ -159,7 +159,7 @@ The result should look like this:
 
 ### Popup with a custom component and an animation
 ```jsx
-import { PopupMe } from 'morabaa-provider';
+import { PopupMe } from 'eze-spark';
 
 const animations = [
   "auto",
@@ -228,7 +228,7 @@ The result should look like this:
 
 ### Popup with a custom component and a placement
 ```jsx
-import { PopupMe } from 'morabaa-provider';
+import { PopupMe } from 'eze-spark';
 
 const placementsWithBody = ["auto", "center", "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "right", "none"];
 
@@ -277,7 +277,7 @@ The result should look like this:
 
 ### Popup with a custom component and a placement
 ```jsx
-import { PopupMe } from 'morabaa-provider';
+import { PopupMe } from 'eze-spark';
 
 const placementsWithTarget = ["auto", "left", "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "right", "none", "auto"];
 
@@ -365,7 +365,7 @@ You can configure each popup by passing the following options to the PopupMe fun
 | animation         | `string`  | auto    | The animation of the popup. It can be one of the following: `auto`, `width`, `height`, `width-height`, `scale-x`, `scale-y`, `scale-both`, `slide-bottom`, `slide-top`, `slide-left`, `slide-right`, `fade`, `none`. |
 
 ## Animations
-Morabaa Provider comes with a set of predefined animations that you can use to animate your popups. You can also create your own animations by adding new CSS classes to the library's CSS file.
+Eze-Spark comes with a set of predefined animations that you can use to animate your popups. You can also create your own animations by adding new CSS classes to the library's CSS file.
 
 | Name              | Description                                                                                                                                                                                                 |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
