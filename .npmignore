@@ -7,4 +7,3 @@ scripts
 .eslintrc
 tsconfig.json
 rollup.*
-build-storybook.log

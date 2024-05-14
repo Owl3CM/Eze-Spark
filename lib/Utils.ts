@@ -1,4 +1,4 @@
-import { Components, CurrentPopups, Popup } from "./ProviderController";
+import { Components, CurrentPopups, Popup } from "./SparkController";
 import { GetStyleProps, InAndOutAnimation, PopupProps, SteupProps } from "./types";
 
 let childDim = {

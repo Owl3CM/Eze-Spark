@@ -12,9 +12,7 @@ const config = {
     peerDepsExternal(),
     resolve(),
     commonjs(),
-    typescript({
-      exclude: ["**/*.stories.tsx", "**/*.stories.mdx"],
-    }),
+    typescript(),
     postcss({
       plugins: [],
       minimize: true,

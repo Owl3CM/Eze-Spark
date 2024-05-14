@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
-import { Components, Popup, PopupPortal } from "./ProviderController";
+import { Components, Popup, PopupPortal } from "./SparkController";
 import { PrintPortal } from "./PrintMe";
 import { PopupContainerProps } from "./types";
 
-export const ProviderContainer = ({ clearOnNavigation = true, ...props }: PopupContainerProps) => {
+export const SparkContainer = ({ clearOnNavigation = true, ...props }: PopupContainerProps) => {
   return (
     <>
       <RouteListener clearOnNavigation={clearOnNavigation} />

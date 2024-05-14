@@ -1,7 +1,7 @@
 {
-  "name": "eze-eze-spark",
-  "version": "0.0.1",
-  "description": "Eze-Eze-Spark",
+  "name": "eze-spark",
+  "version": "0.0.2",
+  "description": "Eze-Spark",
   "main": "dist/index.js",
   "source": "src/index.ts",
   "engines": {
@@ -51,10 +51,10 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/Owl3CM/Eze-Eze-Spark.git"
+    "url": "https://github.com/Owl3CM/Eze-Spark.git"
   },
-  "homepage": "https://github.com/Owl3CM/Eze-Eze-Spark",
+  "homepage": "https://github.com/Owl3CM/Eze-Spark",
   "bugs": {
-    "url": "https://github.com/Owl3CM/Eze-Eze-Spark/issues"
+    "url": "https://github.com/Owl3CM/Eze-Spark/issues"
   }
 }

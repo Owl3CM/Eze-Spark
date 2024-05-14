@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { Components, Popup } from "./ProviderController";
+import { Components, Popup } from "./SparkController";
 import { PopupComponentType, PrintProps } from "./types";
 import { isMobile } from "./Utils";
 

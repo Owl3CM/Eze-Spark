@@ -1,6 +1,6 @@
 //  Nwe Future
 import { CSSProperties } from "react";
-import { Components, Popup, PopupExits, convertToComponentIfNot } from "./ProviderController";
+import { Components, Popup, PopupExits, convertToComponentIfNot } from "./SparkController";
 import { getUniqueKey, handleOutClick } from "./Utils";
 import { PopupComponentType, PopupProps, ScaleUpBuildProps, ScaleUpOptions } from "./types";
 
