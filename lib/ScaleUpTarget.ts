@@ -73,7 +73,7 @@ export const buildProps: ScaleUpBuildProps = (Component: PopupComponentType, opt
   const onRemoved = options.onRemoved;
   const containerClass = options.containerClass ?? Popup.containerClass;
 
-  if (target) target.setAttribute("has-popup", "true");
+  // if (target) target.setAttribute("has-popup", "true");
   return {
     Component: _Component,
     id,

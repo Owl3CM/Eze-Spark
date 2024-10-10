@@ -1,5 +1,8 @@
 /* scale up */
 @layer popup {
+  :root{
+    --scale-up-animation-duration: 400ms;
+  }
 div:has(>.scale-up-target){
   position: fixed;
   inset: 0;
@@ -31,7 +34,7 @@ div:has(>.scale-up-target){
   width: 100vw;
   top: var(--scale-up-target-offset-y);
   left: var(--scale-up-target-offset-x);
-  animation: scale-up-target-frames-fill-in .4s ease-in-out !important;
+  animation: scale-up-target-frames-fill-in var(--scale-up-animation-duration) ease-in !important;
 }
 @keyframes scale-up-target-frames-fill-in {
   0%,20% {
@@ -39,7 +42,7 @@ div:has(>.scale-up-target){
     left: var(--scale-up-target-left);
     height: var(--scale-up-target-height);
     top: var(--scale-up-target-top);
-    opacity: 0;
+    opacity: 0.5;
   }
   20% { opacity: 1;}
   100% {
@@ -53,7 +56,7 @@ div:has(>.scale-up-target){
 
 [fade-type="fill-out"] {
   opacity: 0;
-  animation: scale-up-target-frames-out .4s ease-in-out !important;
+  animation: scale-up-target-frames-out var(--scale-up-animation-duration) ease-out !important;
 }
 
 @keyframes scale-up-target-frames-out {
@@ -69,8 +72,9 @@ div:has(>.scale-up-target){
     left: var(--scale-up-target-left);
     height: var(--scale-up-target-height);
     top: var(--scale-up-target-top);
-    opacity: 1;
+     opacity: 1;
   }
+  /* 70% { opacity: 1;} */
   100% { opacity: 0;}
 }
 
@@ -80,7 +84,7 @@ div:has(>.scale-up-target){
   left: var(--scale-up-target-offset-x);
   height: var(--scale-up-target-height);
   top: var(--scale-up-target-top);
-  animation: scale-up-target-frames-horizontal-in .4s ease-in-out !important;
+  animation: scale-up-target-frames-horizontal-in var(--scale-up-animation-duration) ease-in-out !important;
 }
 
 @keyframes scale-up-target-frames-horizontal-in {
@@ -99,7 +103,7 @@ div:has(>.scale-up-target){
 
 [fade-type="horizontal-out"] {
   opacity: 0;
-  animation: scale-up-target-frames-horizontal-out .4s ease-in-out !important;
+  animation: scale-up-target-frames-horizontal-out var(--scale-up-animation-duration) ease-in-out !important;
 }
 
 @keyframes scale-up-target-frames-horizontal-out {
@@ -121,7 +125,7 @@ div:has(>.scale-up-target){
   height: 100vh;
   top: var(--scale-up-target-offset-y);
   opacity: 1;
-  animation: scale-up-target-frames-vertical-in .4s ease-in-out !important;
+  animation: scale-up-target-frames-vertical-in var(--scale-up-animation-duration) ease-in-out !important;
 }
 @keyframes scale-up-target-frames-vertical-in {
   0% {
@@ -143,7 +147,7 @@ div:has(>.scale-up-target){
 
 [fade-type="vertical-out"] {
   opacity: 0;
-  animation: scale-up-target-frames-vertical-out .4s ease-in-out !important;
+  animation: scale-up-target-frames-vertical-out var(--scale-up-animation-duration) ease-in-out !important;
 }
 
 @keyframes scale-up-target-frames-vertical-out {
@@ -184,7 +188,7 @@ div:has(>.scale-up-target){
   left: var(--scale-up-target-left);
   height: var(--scale-up-target-height);
   top: var(--scale-up-target-top);
-  animation: scale-up-target-frames-fit-in .2s ease-in-out !important;
+  animation: scale-up-target-frames-fit-in var(--scale-up-animation-duration)  ease-in-out !important;
 }
 @keyframes scale-up-target-frames-fit-in {
   0% {
@@ -199,7 +203,7 @@ div:has(>.scale-up-target){
 
 [fade-type="fit-out"] {
   opacity: 0;
-  animation: scale-up-target-frames-fit-out .4s ease-in-out !important;
+  animation: scale-up-target-frames-fit-out var(--scale-up-animation-duration) ease-in-out !important;
 }
 
 @keyframes scale-up-target-frames-fit-out {

@@ -17,8 +17,17 @@ export const steup = ({ container, id, placement, target, offset, onRemoved, ani
     parent?.querySelector("#provider-popup-overlay_" + id)?.classList.add("opacity-out");
 
     (container.firstChild as any)?.setAttribute("fade-type", `${animation.out}-out`);
-    const time = getComputedStyle(document.documentElement).getPropertyValue("--popup-animation-time");
-    await sleep(parseInt(time) ?? 300);
+    // check it it scale or popup
+    const isScaleUp = (container.firstChild as any).classList.contains("scale-up-target");
+
+    let time = isScaleUp
+      ? getComputedStyle(document.documentElement).getPropertyValue("--scale-up-animation-duration")
+      : (getComputedStyle(document.documentElement).getPropertyValue("--popup-animation-time") as any);
+
+    if (time.includes("ms")) time = parseInt(time) as any;
+    else time = (1000 * parseInt(time)) as any;
+
+    await sleep(time ?? 300);
     onRemoved?.();
     Popup.render(Math.random());
     await sleep(1);
