@@ -10,7 +10,7 @@ import {
   Animation,
   InAndOutAnimation,
 } from "./types";
-import { getUniqueKey, handleOutClick, setpChild, sleep, steup } from "./Utils";
+import { cleanString, getUniqueKey, handleOutClick, setpChild, sleep, steup } from "./Utils";
 
 export const CurrentPopups: { [id: string]: any } = {};
 export const Components: { [id: string]: PopupProps } = {};
@@ -103,7 +103,7 @@ PopupPortalProps) => {
       {overlay && (
         <div
           className={`provider-popup-overlay ${overlayClass}`}
-          id={"provider-popup-overlay_" + id}
+          id={"provider-popup-overlay_" + cleanString(id)}
           // onClick={() => removeOnOutClick && Popup.remove(id)}
         />
       )}
@@ -128,6 +128,7 @@ const buildProps: BuildProps = (Component: PopupComponentType, options: PopupOpt
 
   const offset = options.offset ?? Popup.offset;
   const id = options.id ?? `${Math.random()}`.replace(".", "");
+
   const childClass = (options.childClass ?? Popup.childClass) as string;
   const onRemoved = options.onRemoved;
   const containerClass = options.containerClass ?? Popup.containerClass;

@@ -14,7 +14,7 @@ export const steup = ({ container, id, placement, target, offset, onRemoved, ani
     delete Components[container.id!];
 
     container.classList.add("opacity-out");
-    parent?.querySelector("#provider-popup-overlay_" + id)?.classList.add("opacity-out");
+    parent?.querySelector("#provider-popup-overlay_" + cleanString(id))?.classList.add("opacity-out");
 
     (container.firstChild as any)?.setAttribute("fade-type", `${animation.out}-out`);
     // check it it scale or popup
@@ -173,3 +173,5 @@ export function handleOutClick(props: PopupProps) {
     }, 5);
   }
 }
+
+export const cleanString = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "");
