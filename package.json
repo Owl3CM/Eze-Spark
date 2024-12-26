@@ -1,8 +1,8 @@
 {
   "name": "eze-spark",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Eze-Spark",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "source": "src/index.ts",
   "engines": {
     "node": ">=14"
