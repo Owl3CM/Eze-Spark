@@ -174,4 +174,4 @@ export function handleOutClick(props: PopupProps) {
   }
 }
 
-export const cleanString = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "");
+export const cleanString = (str: string) => (typeof str === "string" ? str.replace(/[^a-zA-Z0-9]/g, "") : "");
